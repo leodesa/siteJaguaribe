@@ -1,0 +1,67 @@
+/* Custom Stylesheet */
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ */
+
+.icon-block {
+  padding: 0 15px;
+}
+.icon-block .material-icons {
+	font-size: inherit;
+}
+.login{
+	margin-top: 3%;
+	margin-bottom: 7%;
+	width: 50%;
+}
+.cadastro{
+	width: 80%;
+}
+#logo{
+	width: 74px !important; 
+	height: 87px !important;
+}
+.redes{
+	margin-right: 5px;
+	width: 18px;
+	height: 18px;
+	font-size: 20px;
+}
+#logo-container{
+	font-size: 200% !important;
+}
+#C1{
+	color: #aaa;
+	font-size: 15px;
+}
+#C2{
+	color: #45916B;
+	font-size: 15px;
+}
+#titulo{
+	font-size: 200%;
+	color: #45916B;
+}
+
+
+@media only screen and (max-width: 890px) {
+    #logo-container{
+		font-size: 150% !important;
+    }
+}
+@media only screen and (max-width: 600px) {
+    #logo-container{
+    	font-size: 100% !important;
+    }
+    .login{
+    	width: 80%;
+    }
+}
+@media only screen and (max-width: 425px) {
+    .login{
+    	width: 90%;
+    }
+}
