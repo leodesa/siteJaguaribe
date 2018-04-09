@@ -15,7 +15,7 @@
 .login{
 	margin-top: 3%;
 	margin-bottom: 7%;
-	width: 50%;
+	width: 40%;
 }
 .cadastro{
 	width: 80%;
@@ -44,6 +44,9 @@
 #titulo{
 	font-size: 200%;
 	color: #45916B;
+}
+v {
+	color: #F00;
 }
 
 
