@@ -7,12 +7,13 @@
 })(jQuery); // end of jQuery name space
 
 function validar(){
-	usuario = form1.usuario.value;
-	verificarVazio(usuario);
-	senha = form1.password.value;
-	verificarVazio(senha);
-	confSenha = form1.passwordConf.value;
-	verificarVazio(confSenha);
+	usuario = cadastro.usuario.value;
+	senha = cadastro.password.value;
+	confSenha = cadastro.passwordConf.value;
+
+	if (verificarVazio(usuario) || verificarVazio(senha) || verificarVazio(confSenha)) {
+		alert('Todos os capos com "*" devem ser preenchidos.')
+	}
 
 	if (senha != confSenha){
 		alert('Senhas Diferentes!')
@@ -21,6 +22,7 @@ function validar(){
 
 function verificarVazio(campo){
 	if (campo == ''){
-		alert('Campos com "*" devem ser preenchidos')
+		return true;
 	}
+	return false;
 }

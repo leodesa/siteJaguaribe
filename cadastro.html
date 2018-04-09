@@ -20,7 +20,7 @@
   </nav>
     <h1 id="titulo" class="center">Cadastro Fornecedores e Prestadores de Serviços</h1>
     <div class="cadastro row">
-    <form name="form1" class="col s12">
+    <form name="cadastro" class="col s12">
       <h5 id="cabeca">Login<i class="material-icons left">person</i></h5>
       <div class="row">
         <div class="input-field col s5">
@@ -49,7 +49,7 @@
           <label for="fantasia">Nome de Fantasia</label>
         </div>
         <div class="input-field col s7">
-          <input id="cnpj" type="text" class="validate">
+          <input id="cnpj" type="number" class="validate">
           <label for="cnpj">CNPJ.n° <v>*</v></label>
         </div>
         <div class="input-field col s5">
@@ -58,7 +58,7 @@
         </div>
         <div class="input-field col s12">
           <input id="rua" type="text" class="validate">
-          <label for="rua">Rua</label>
+          <label for="rua">Rua <v>*</v></label>
         </div>
         <div class="input-field col s12">
           <input id="complemento" type="text" class="validate">
@@ -66,15 +66,15 @@
         </div>
         <div class="input-field col s7">
           <input id="bairro" type="text" class="validate">
-          <label for="baiiro">Bairro</label>
+          <label for="baiiro">Bairro <v>*</v></label>
         </div>
         <div class="input-field col s5">
-          <input id="telefone" type="text" class="validate">
-          <label for="telefone">Telefone</label>
+          <input id="telefone" type="number" class="validate">
+          <label for="telefone">Telefone <v>*</v></label>
         </div>
         <div class="input-field col s7">
           <input id="cidade" type="text" class="validate">
-          <label for="cidade">Cidade</label>
+          <label for="cidade">Cidade <v>*</v></label>
         </div>
         <div class="input-field col s5">
           <input id="uf" type="text" class="validate">
@@ -89,7 +89,7 @@
           <label for="nomeBanco">Nome do Banco</label>
         </div>
         <div class="input-field col s12">
-          <input id="agencia" type="text" class="validate">
+          <input id="agencia" type="number" class="validate">
           <label for="agencia">Agencia</label>
         </div>
         <div class="input-field col s12">
@@ -104,7 +104,7 @@
           <label for="nome">Nome</label>
         </div>
         <div class="input-field col s6">
-          <input id="cpf" type="text" class="validate">
+          <input id="cpf" type="number" class="validate">
           <label for="cpf">CPF</label>
         </div>
         <div class="input-field col s6">
@@ -112,11 +112,11 @@
           <label for="quantificacao">Quantificação</label>
         </div>
         <div class="input-field col s6">
-          <input id="telefoneSocios" type="text" class="validate">
+          <input id="telefoneSocios" type="number" class="validate">
           <label for="telefoneSocios">Telefone</label>
         </div>
         <div class="input-field col s6">
-          <input id="celular" type="text" class="validate">
+          <input id="celular" type="number" class="validate">
           <label for="celular">Celular</label>
         </div>
         <div class="input-field col s12">
