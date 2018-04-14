@@ -20,28 +20,28 @@
   </nav>
     <h1 id="titulo" class="center">Cadastro Fornecedores e Prestadores de Serviços</h1>
     <div class="cadastro row">
-    <form name="cadastro" class="col s12">
+    <form name="cadastro" id="cadastro" class="col s12" method="POST" action="#">
       <h5 id="cabeca">Login<i class="material-icons left">person</i></h5>
       <div class="row">
-        <div class="input-field col s5">
-          <input id="usuario" type="text" class="validate">
+        <div class="input-field col s12">
+          <input id="usuario" name="usuario" type="text" class="validate" required>
           <label for="usuario">Usuário <v>*</v></label>
         </div>
       </div>
       <div class="row">
-        <div class="input-field col s4">
-          <input id="password" type="password" class="validate">
-          <label for="password">Senha <v>*</v></label>
+        <div class="input-field col s7">
+          <input id="pass" type="password" class="validate" required>
+          <label for="pass">Senha <v>*</v></label>
         </div>
-        <div class="input-field col s4">
-          <input id="passwordConf" type="password" class="validate">
+        <div class="input-field col s5">
+          <input id="passwordConf" type="password" class="validate" required onMouseout="verificarSenha()">
           <label for="passwordConf">Repetir Senha<v>*</v></label>
         </div>
       </div>
       <h5 id="cabeca">Pessoa Juridíca<i class="material-icons left">people</i></h5>
       <div class="row">
         <div class="input-field col s12">
-          <input id="rasaoSocial" type="text" class="validate">
+          <input id="rasaoSocial" type="text" class="validate" required>
           <label for="rasaoSocial">Rasão Social <v>*</v></label>
         </div>
         <div class="input-field col s12">
@@ -49,7 +49,7 @@
           <label for="fantasia">Nome de Fantasia</label>
         </div>
         <div class="input-field col s7">
-          <input id="cnpj" type="number" class="validate">
+          <input id="cnpj" type="number" class="validate" required>
           <label for="cnpj">CNPJ.n° <v>*</v></label>
         </div>
         <div class="input-field col s5">
@@ -57,11 +57,11 @@
           <label for="cgf">C.G.F.</label>
         </div>
         <div class="input-field col s10">
-          <input id="rua" type="text" class="validate">
+          <input id="rua" type="text" class="validate" required>
           <label for="rua">Rua <v>*</v></label>
         </div>
         <div class="input-field col s2">
-          <input id="numeroCasa" type="number" class="validate">
+          <input id="numeroCasa" type="number" class="validate" required>
           <label for="numeroCasa">N° <v>*</v></label>
         </div>
         <div class="input-field col s12">
@@ -69,19 +69,19 @@
           <label for="complemento">Complemento</label>
         </div>
         <div class="input-field col s7">
-          <input id="bairro" type="text" class="validate">
+          <input id="bairro" type="text" class="validate" required>
           <label for="baiiro">Bairro <v>*</v></label>
         </div>
         <div class="input-field col s5">
-          <input id="telefone" type="number" class="validate">
+          <input id="telefone" type="number" class="validate" required>
           <label for="telefone">Telefone <v>*</v></label>
         </div>
         <div class="input-field col s7">
-          <input id="cidade" type="text" class="validate">
+          <input id="cidade" type="text" class="validate" required>
           <label for="cidade">Cidade <v>*</v></label>
         </div>
         <div class="input-field col s5">
-          <input id="uf" type="text" class="validate">
+          <input id="uf" type="text" class="validate" required>
           <label for="uf">UF <v>*</v></label>
         </div>
       </div>
@@ -129,7 +129,7 @@
         </div>
       </div>
       <div class="col s12"><i class="add material-icons" onclick="">add_circle</i></div>
-      <button class="green right btn waves-effect waves-light" type="submit" name="action" onclick="return validar()">Cadastrar
+      <button class="green right btn waves-effect waves-light" type="button" name="action" onclick="return validar()">Cadastrar
         <i class="material-icons right">send</i>
       </button>
     </form>

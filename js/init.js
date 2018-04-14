@@ -6,28 +6,41 @@
   }); // end of document ready
 })(jQuery); // end of jQuery name space
 
-usuario = cadastro.usuario.value;
-senha = cadastro.password.value;
-confSenha = cadastro.passwordConf.value;
-rasaoSocial = cadastro.rasaoSocial.value;
-cnpj = cadastro.cnpj.value;
-rua = cadastro.rua.value;
-numeroCasa = cadastro.numeroCasa.value;
-bairro = cadastro.bairro.value;
-cidade = cadastro.cidade.value;
-telefone = cadastro.telefone.value;
-uf = cadastro.uf.value;
-
+//usuario = cadastro.usuario.value;
+//senha = cadastro.pass.value;
+//confSenha = cadastro.passwordConf.value;
+//rasaoSocial = cadastro.rasaoSocial.value;
+//cnpj = cadastro.cnpj.value;
+//rua = cadastro.rua.value;
+//numeroCasa = cadastro.numeroCasa.value;
+//bairro = cadastro.bairro.value;
+//cidade = cadastro.cidade.value;
+//telefone = cadastro.telefone.value;
+//uf = cadastro.uf.value;
+var usuario = document.getElementById('usuario').value;
+var senha = document.getElementById('senha').value;
+var confSenha = document.getElementById('confSenha').value;
+var rasaoSocial = document.getElementById('rasaoSocial').value;
+var cnpj = document.getElementById('cnpj').value;
+var rua = document.getElementById('rua').value;
+var numeroCasa = document.getElementById('numeroCasa').value;
+var bairro = document.getElementById('bairro').value;
+var cidade = document.getElementById('cidade').value;
+var telefone = document.getElementById('telefone').value;
+var uf = document.getElementById('uf').value;
 function validar(){
-	if (verificarVazio(usuario) || verificarVazio(senha) || verificarVazio(confSenha)
-	 || verificarVazio(rasaoSocial) || verificarVazio(cnpj) || verificarVazio(rua)
-	 || verificarVazio(numeroCasa) || verificarVazio(bairro) || verificarVazio(cidade)
-	 || verificarVazio(telefone) || verificarVazio(uf)){
+	alert(usuario);
+	if (verificarVazio(usuario)){
 		alert('Todos os capos com "*" devem ser preenchidos.')
 	}
-	verificarSenha();
-	if (!validarCNPJ(cnpj);) {
+	else if (!validarCNPJ(cnpj)) {
 		alert('CNPJ invalido')
+	}
+	else if (verificarSenha()) {
+		alert('Senhas Diferentes!')
+	}
+	else{
+		cadastro.submit;
 	}
 	
 }
@@ -41,8 +54,9 @@ function verificarVazio(campo){
 
 function verificarSenha(){
 	if (senha != confSenha){
-		alert('Senhas Diferentes!')
+		return true;
 	}
+	return false;
 }
 
 function validarCNPJ(cnpj) {
