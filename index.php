@@ -20,23 +20,23 @@
   </nav>
     <h1 id="titulo" class="center">Fornecedores e Prestadores de Serviços</h1>
     <div class="login row">
-    <form name="login" class="col s12">
+    <form name="login" class="col s12" action="DAO.php" method="POST">
       <div class="row">
         <div class="input-field col s12">
-          <input id="usuario" type="text" class="validate">
+          <input id="usuario" type="text" class="validate" name="usuario">
           <label for="usuario">Usuário</label>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s12">
-          <input id="password" type="password" class="validate">
+          <input id="password" type="password" class="validate" name="senha">
           <label for="password">Senha</label>
         </div>
       </div>
       <button class="green right btn waves-effect waves-light" type="submit" name="action" onclick="return loginTemp()">Entrar
         <i class="material-icons right">send</i>
       </button>
-      <h1 id="C1">Ainda não tem cadastro? <a id="C2" href="cadastro.html">Cadastrar</a></h1>
+      <h1 id="C1">Ainda não tem cadastro? <a id="C2" href="cadastro.php">Cadastre-se</a></h1>
     </form>
   </div>
   <footer class="page-footer green">
