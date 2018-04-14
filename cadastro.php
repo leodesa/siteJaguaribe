@@ -20,68 +20,68 @@
   </nav>
     <h1 id="titulo" class="center">Cadastro Fornecedores e Prestadores de Serviços</h1>
     <div class="cadastro row">
-    <form name="cadastro" id="cadastro" class="col s12" method="POST" action="#">
+    <form name="cadastro" class="col s12" method="POST" action="#">
       <h5 id="cabeca">Login<i class="material-icons left">person</i></h5>
       <div class="row">
         <div class="input-field col s12">
-          <input id="usuario" name="usuario" type="text" class="validate" required>
-          <label for="usuario">Usuário <v>*</v></label>
+          <input id="usuario1" name="usuario" type="text" class="validate" required>
+          <label for="usuario1">Usuário <v>*</v></label>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s7">
-          <input id="pass" type="password" class="validate" required>
-          <label for="pass">Senha <v>*</v></label>
+          <input id="senha" name="senha" type="password" class="validate" required>
+          <label for="senha">Senha <v>*</v></label>
         </div>
         <div class="input-field col s5">
-          <input id="passwordConf" type="password" class="validate" required onMouseout="verificarSenha()">
-          <label for="passwordConf">Repetir Senha<v>*</v></label>
+          <input id="confSenha" name="confSenha" type="password" class="validate" required>
+          <label for="confSenha">Repetir Senha<v>*</v></label>
         </div>
       </div>
       <h5 id="cabeca">Pessoa Juridíca<i class="material-icons left">people</i></h5>
       <div class="row">
         <div class="input-field col s12">
-          <input id="rasaoSocial" type="text" class="validate" required>
+          <input id="rasaoSocial" name="rasaoSocial" type="text" class="validate" required>
           <label for="rasaoSocial">Rasão Social <v>*</v></label>
         </div>
         <div class="input-field col s12">
-          <input id="fantasia" type="text" class="validate">
+          <input id="fantasia" name="fantasia" type="text" class="validate">
           <label for="fantasia">Nome de Fantasia</label>
         </div>
         <div class="input-field col s7">
-          <input id="cnpj" type="number" class="validate" required>
+          <input id="cnpj" name="cnpj" type="number" class="validate" required>
           <label for="cnpj">CNPJ.n° <v>*</v></label>
         </div>
         <div class="input-field col s5">
-          <input id="cgf" type="text" class="validate">
+          <input id="cgf" name="cgf" type="text" class="validate">
           <label for="cgf">C.G.F.</label>
         </div>
         <div class="input-field col s10">
-          <input id="rua" type="text" class="validate" required>
+          <input id="rua" name="rua" type="text" class="validate" required>
           <label for="rua">Rua <v>*</v></label>
         </div>
         <div class="input-field col s2">
-          <input id="numeroCasa" type="number" class="validate" required>
+          <input id="numeroCasa" name="numeroCasa" type="number" class="validate" required>
           <label for="numeroCasa">N° <v>*</v></label>
         </div>
         <div class="input-field col s12">
-          <input id="complemento" type="text" class="validate">
+          <input id="complemento" name="complemento" type="text" class="validate">
           <label for="complemento">Complemento</label>
         </div>
         <div class="input-field col s7">
-          <input id="bairro" type="text" class="validate" required>
+          <input id="bairro" name="bairro" type="text" class="validate" required>
           <label for="baiiro">Bairro <v>*</v></label>
         </div>
         <div class="input-field col s5">
-          <input id="telefone" type="number" class="validate" required>
+          <input id="telefone" name="telefone" type="number" class="validate" required>
           <label for="telefone">Telefone <v>*</v></label>
         </div>
         <div class="input-field col s7">
-          <input id="cidade" type="text" class="validate" required>
+          <input id="cidade" name="cidade" type="text" class="validate" required>
           <label for="cidade">Cidade <v>*</v></label>
         </div>
         <div class="input-field col s5">
-          <input id="uf" type="text" class="validate" required>
+          <input id="uf" name="uf" type="text" class="validate" required>
           <label for="uf">UF <v>*</v></label>
         </div>
       </div>
@@ -89,47 +89,47 @@
 </i></h5>
       <div class="row">
         <div class="input-field col s12">
-          <input id="nomeBanco" type="text" class="validate">
+          <input id="nomeBanco" name="nomeBanco" type="text" class="validate">
           <label for="nomeBanco">Nome do Banco</label>
         </div>
         <div class="input-field col s12">
-          <input id="agencia" type="number" class="validate">
+          <input id="agencia" name="agencia" type="number" class="validate">
           <label for="agencia">Agencia</label>
         </div>
         <div class="input-field col s12">
-          <input id="contaCorrente" type="text" class="validate">
+          <input id="contaCorrente" name="contaCorrente" type="text" class="validate">
           <label for="contaCorrente">Conta Corrente</label>
         </div>
       </div>
       <h5 id="cabeca">Sócios, Diretores ou Representantes<i class="material-icons left">assignment_ind</i></h5>
       <div class="row">
         <div class="input-field col s12">
-          <input id="nome" type="text" class="validate">
+          <input id="nome" name="nome" type="text" class="validate">
           <label for="nome">Nome</label>
         </div>
         <div class="input-field col s6">
-          <input id="cpf" type="number" class="validate">
+          <input id="cpf" name="cpf" type="number" class="validate">
           <label for="cpf">CPF</label>
         </div>
         <div class="input-field col s6">
-          <input id="quantificacao" type="text" class="validate">
+          <input id="quantificacao" name="quantificacao" type="text" class="validate">
           <label for="quantificacao">Quantificação</label>
         </div>
         <div class="input-field col s6">
-          <input id="telefoneSocios" type="number" class="validate">
+          <input id="telefoneSocios" name="telefoneSocios" type="number" class="validate">
           <label for="telefoneSocios">Telefone</label>
         </div>
         <div class="input-field col s6">
-          <input id="celular" type="number" class="validate">
+          <input id="celular" name="celular" type="number" class="validate">
           <label for="celular">Celular</label>
         </div>
         <div class="input-field col s12">
-          <input id="email" type="text" class="validate">
+          <input id="email" name="email" type="text" class="validate">
           <label for="email">Email</label>
         </div>
       </div>
       <div class="col s12"><i class="add material-icons" onclick="">add_circle</i></div>
-      <button class="green right btn waves-effect waves-light" type="button" name="action" onclick="return validar()">Cadastrar
+      <button class="green right btn waves-effect waves-light" type="button" name="action" onclick="validar()">Cadastrar
         <i class="material-icons right">send</i>
       </button>
     </form>
@@ -165,7 +165,7 @@
   <!--  Scripts-->
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="js/materialize.js"></script>
-  <script src="js/init.js"></script>
+  <script src="js/script.js"></script>
 
   </body>
 </html>
