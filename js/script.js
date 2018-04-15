@@ -21,11 +21,12 @@ cidade = cadastro.cidade.value;
 telefone = cadastro.telefone.value;
 uf = cadastro.uf.value;
 function validar(){
-    if (verificarVazio(usuario) || verificarVazio(senha) || verificarVazio(confSenha)
-     || verificarVazio(rasaoSocial) || verificarVazio(cnpj) || verificarVazio(rua)
-     || verificarVazio(numeroCasa) || verificarVazio(bairro) || verificarVazio(cidade)
-     || verificarVazio(telefone) || verificarVazio(uf)){
-        alert('Todos os capos com "*" devem ser preenchidos.')
+    alert(usuario);
+    if ((verificarVazio(usuario)) || (verificarVazio(senha)) || (verificarVazio(confSenha))
+     || (verificarVazio(rasaoSocial)) || (verificarVazio(cnpj)) || (verificarVazio(rua))
+     || (verificarVazio(numeroCasa)) || (verificarVazio(bairro)) || (verificarVazio(cidade))
+     || (verificarVazio(telefone)) || (verificarVazio(uf))){
+        alert('Todos os campos com "*" devem ser preenchidos.')
     }
     else{
         if (!validarCNPJ(cnpj)) {
@@ -43,7 +44,7 @@ function validar(){
 }
 
 function verificarVazio(campo){
-	if (campo == ''){
+	if (campo == ""){
 		return true;
 	}
 	return false;
