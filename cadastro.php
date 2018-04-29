@@ -10,6 +10,26 @@
   <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link rel="icon" href="img/logo.png">
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+<script>
+	var socios = 1;
+	function adicionarCampos(){
+			socios++;
+			if(socios==2){
+				$('#op').append("<div class='green left btn waves-effect waves-light center spaco' id='closeSo' onclick='removeCampo(\"socioCp\")'>Remover<i class='material-icons right closeSocios' id='closeSo'>close</i></div>");
+			}
+			$('#campo').append("<div id='socioCp"+socios+"'><h6 id='cabeca' class='right'>Número "+socios+"<i class='material-icons right'>people</i></h6><div class='input-field col s12'><input id='nomeSocio"+socios+"' name='nomeSocio"+socios+"' type='text' class='validate'><label for='nomeSocio"+socios+"'>Nome</label></div><div class='input-field col s6'><input id='cpfSocio"+socios+"' name='cpfSocio"+socios+"' type='number' class='validate'><label for='cpfSocio"+socios+"'>CPF</label></div><div class='input-field col s6'><input id='quantificacaoSocio"+socios+"' name='quantificacaoSocio"+socios+"' type='text' class='validate'><label for='quantificacaoSocio"+socios+"'>Quantificação</label></div><div class='input-field col s6'><input id='telefoneSocios"+socios+"' name='telefoneSocios"+socios+"' type='number' class='validate'><label for='telefoneSocios"+socios+"'>Telefone</label></div><div class='input-field col s6'><input id='celularSocio"+socios+"' name='celularSocio"+socios+"'type='number' class='validate'><label for='celularSocio"+socios+"'>Celular</label></div><div class='input-field col s12'><input id='emailSocio' name='emailSocio"+socios+"' type='text' class='validate'><label for='emailSocio"+socios+"'>Email</label></div></div>");
+			$('#qtdeSocios').val(parseInt($('#qtdeSocios').val())+1);
+	}
+	function removeCampo(div) {
+		$('#'+div+$('#qtdeSocios').val()).remove();
+		socios--;
+		$('#qtdeSocios').val(parseInt($('#qtdeSocios').val())-1);
+		if(socios<2){
+			$('#closeSo').remove();
+		}
+	}
+</script>
 </head>
 <body>
   <nav class="green lighten-1" role="navigation">
@@ -20,22 +40,22 @@
   </nav>
     <h1 id="titulo" class="center">Cadastro Fornecedores e Prestadores de Serviços</h1>
     <div class="cadastro row">
-    <form name="cadastro" class="col s12" method="POST" action="#">
+    <form name="cadastro" id="cadastro" class="col s12" method="POST" action="DAO.php">
       <h5 id="cabeca">Login<i class="material-icons left">person</i></h5>
       <div class="row">
         <div class="input-field col s12">
-          <input id="usuario1" name="usuario" type="text" class="validate" required>
-          <label for="usuario1">Usuário <v>*</v></label>
+          <input id="usuarioCad" name="usuarioCad" type="text" class="validate" required>
+          <label for="usuarioCad">Usuário <v>*</v></label>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s7">
-          <input id="senha" name="senha" type="password" class="validate" required>
-          <label for="senha">Senha <v>*</v></label>
+          <input id="senha" type="password" name="senha" class="validate" required>
+          <label for="pass">Senha <v>*</v></label>
         </div>
         <div class="input-field col s5">
-          <input id="confSenha" name="confSenha" type="password" class="validate" required>
-          <label for="confSenha">Repetir Senha<v>*</v></label>
+          <input id="senhaConf" name="senhaConf"type="password" class="validate" required>
+          <label for="passwordConf">Repetir Senha<v>*</v></label>
         </div>
       </div>
       <h5 id="cabeca">Pessoa Juridíca<i class="material-icons left">people</i></h5>
@@ -70,14 +90,14 @@
         </div>
         <div class="input-field col s7">
           <input id="bairro" name="bairro" type="text" class="validate" required>
-          <label for="baiiro">Bairro <v>*</v></label>
+          <label for="bairro">Bairro <v>*</v></label>
         </div>
         <div class="input-field col s5">
           <input id="telefone" name="telefone" type="number" class="validate" required>
           <label for="telefone">Telefone <v>*</v></label>
         </div>
         <div class="input-field col s7">
-          <input id="cidade" name="cidade" type="text" class="validate" required>
+          <input id="cidade" name="cidade"type="text" class="validate" required>
           <label for="cidade">Cidade <v>*</v></label>
         </div>
         <div class="input-field col s5">
@@ -102,33 +122,37 @@
         </div>
       </div>
       <h5 id="cabeca">Sócios, Diretores ou Representantes<i class="material-icons left">assignment_ind</i></h5>
-      <div class="row">
+      <div class="row" id="campo">
+	  <input type="hidden" value="1" id="qtdeSocios" name="qtdeSocios"/>
+	  <h6 id="cabeca" class="right">Número 1<i class="material-icons right">people</i></h6>
         <div class="input-field col s12">
-          <input id="nome" name="nome" type="text" class="validate">
-          <label for="nome">Nome</label>
+          <input id="nomeSocio" name="nomeSocio" type="text" class="validate">
+          <label for="nomeSocio">Nome</label>
         </div>
         <div class="input-field col s6">
-          <input id="cpf" name="cpf" type="number" class="validate">
-          <label for="cpf">CPF</label>
+          <input id="cpfSocio" name="cpfSocio" type="number" class="validate">
+          <label for="cpfSocio">CPF</label>
         </div>
         <div class="input-field col s6">
-          <input id="quantificacao" name="quantificacao" type="text" class="validate">
-          <label for="quantificacao">Quantificação</label>
+          <input id="quantificacaoSocio" name="quantificacaoSocio" type="text" class="validate">
+          <label for="quantificacaoSocio">Quantificação</label>
         </div>
         <div class="input-field col s6">
           <input id="telefoneSocios" name="telefoneSocios" type="number" class="validate">
           <label for="telefoneSocios">Telefone</label>
         </div>
         <div class="input-field col s6">
-          <input id="celular" name="celular" type="number" class="validate">
-          <label for="celular">Celular</label>
+          <input id="celularSocio" name="celularSocio" type="number" class="validate">
+          <label for="celularSocio">Celular</label>
         </div>
         <div class="input-field col s12">
-          <input id="email" name="email" type="text" class="validate">
-          <label for="email">Email</label>
+          <input id="emailSocio" name="emailSocio" type="text" class="validate">
+          <label for="emailSocio">Email</label>
         </div>
       </div>
-      <div class="col s12"><i class="add material-icons" onclick="">add_circle</i></div>
+	  <div id="op">
+		<div class="green left btn waves-effect waves-light center" id="buttonMais" onclick="adicionarCampos()">Adicionar<i class="add material-icons center">add_circle</i></div> 
+	  </div>
       <button class="green right btn waves-effect waves-light" type="button" name="action" onclick="validar()">Cadastrar
         <i class="material-icons right">send</i>
       </button>

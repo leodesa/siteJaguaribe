@@ -1,46 +1,28 @@
-usuario = "";
-senha = "";
-confSenha = "";
-rasaoSocial = "";
-cnpj = "";
-rua = "";
-numeroCasa = "";
-bairro = "";
-cidade = "";
-telefone = "";
-uf = "";
-usuario = cadastro.usuario.value;
-senha = cadastro.senha.value;
-confSenha = cadastro.confSenha.value;
-rasaoSocial = cadastro.rasaoSocial.value;
-cnpj = cadastro.cnpj.value;
-rua = cadastro.rua.value;
-numeroCasa = cadastro.numeroCasa.value;
-bairro = cadastro.bairro.value;
-cidade = cadastro.cidade.value;
-telefone = cadastro.telefone.value;
-uf = cadastro.uf.value;
 function validar(){
-    alert(usuario);
-    if ((verificarVazio(usuario)) || (verificarVazio(senha)) || (verificarVazio(confSenha))
-     || (verificarVazio(rasaoSocial)) || (verificarVazio(cnpj)) || (verificarVazio(rua))
-     || (verificarVazio(numeroCasa)) || (verificarVazio(bairro)) || (verificarVazio(cidade))
-     || (verificarVazio(telefone)) || (verificarVazio(uf))){
-        alert('Todos os campos com "*" devem ser preenchidos.')
-    }
-    else{
-        if (!validarCNPJ(cnpj)) {
-            alert('CNPJ invalido')
-        }
-        else{
-            if (verificarSenha()) {
-                alert('Senhas Diferentes!')
-            }
-            else{
-                cadastro.submit;
-            }    
-        }        
-    }   
+	var usuario = $("#usuarioCad").val();
+	var senha = $("#senha").val();
+	var senhaConf = $("#senhaConf").val();
+	var rasaoSocial = $("#rasaoSocial").val();
+	var cnpj = $("#cnpj").val();
+	var rua = $("#rua").val();
+	var numeroCasa = $("#numeroCasa").val();
+	var bairro = $("#bairro").val();
+	var telefone = $("#telefone").val();
+	var cidade = $("#cidade").val();
+	var uf = $("#uf").val();
+    if (verificarVazio(usuario) || verificarVazio(senha) || verificarVazio(senhaConf) || verificarVazio(rasaoSocial) || verificarVazio(cnpj) || verificarVazio(rua)
+	 || verificarVazio(numeroCasa) || verificarVazio(bairro) || verificarVazio(telefone) || verificarVazio(cidade) || verificarVazio(uf)){
+        alert("Preencha todos os campos!");
+    }else
+	if(!verificarSenha()){
+		alert("Senhas diferentes!");
+	}else
+	if(!validarCNPJ(cnpj)){
+		alert("CNPJ inválido");
+	}else{
+		$('#cadastro').submit();
+	}
+	
 }
 
 function verificarVazio(campo){
@@ -51,7 +33,7 @@ function verificarVazio(campo){
 }
 
 function verificarSenha(){
-	if (senha != confSenha){
+	if ($("#senha").val() === $("#senhaConf").val()){
 		return true;
 	}
 	return false;

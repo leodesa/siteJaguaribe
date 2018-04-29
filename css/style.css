@@ -56,7 +56,7 @@
 	color: #333;
 	cursor: pointer;
 }
-v {
+v{
 	color: #F00;
 }
 
@@ -78,4 +78,11 @@ v {
     .login{
     	width: 90%;
     }
+}
+.closeSocios{
+	cursor: pointer;
+	display: inline-block;
+}
+.spaco{
+	margin-left: 5%;
 }
