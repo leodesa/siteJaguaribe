@@ -73,6 +73,14 @@ v{
     .login{
     	width: 80%;
     }
+	.block{
+		display: block;
+		margin-top: 5%;
+		float: right!important;
+	}
+	.container a{
+		font-size: 50px;
+	}
 }
 @media only screen and (max-width: 425px) {
     .login{
@@ -83,6 +91,6 @@ v{
 	cursor: pointer;
 	display: inline-block;
 }
-.spaco{
-	margin-left: 5%;
+.block{
+	display: block!important;
 }

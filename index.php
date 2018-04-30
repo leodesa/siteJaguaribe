@@ -15,7 +15,7 @@
   <nav class="green lighten-1" role="navigation">
     <div class="nav-wrapper container">
       <img id="logo" src="img/logo.png">
-      <a id="logo-container" href="login.html" class="brand-logo">Prefeitura Municipal de Lavras da Mangabeira</a>
+      <a id="logo-container" href="index.php" class="brand-logo">Prefeitura Municipal de Lavras da Mangabeira</a>
     </div>
   </nav>
     <h1 id="titulo" class="center">Fornecedores e Prestadores de Serviços</h1>
@@ -70,7 +70,7 @@
   <!--  Scripts-->
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="js/materialize.js"></script>
-  <script src="js/init.js"></script>
+  <script src="js/script.js"></script>
 
   </body>
 </html>
