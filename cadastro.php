@@ -52,6 +52,7 @@
     <div class="cadastro row">
     <form name="cadastro" id="cadastro" class="col s12" method="POST" action="DAO.php">
       <h5 id="cabeca">Login<i class="material-icons left">person</i></h5>
+	  <input type="hidden" value="1" name="cadastroForm" />
       <div class="row">
         <div class="input-field col s12">
           <input id="usuarioCad" name="usuarioCad" type="text" class="validate" required>

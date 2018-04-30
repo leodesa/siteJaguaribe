@@ -8,7 +8,6 @@
 			if ($row>0){
 				setcookie(md5('usuariofpslavras'),$usuario);
 				setcookie(md5('senhafpslavras'),$pass);
-				echo"Logado";
 				header("Location: inicio.php");
 			}else{
 				echo"Erro";
@@ -25,7 +24,6 @@
 				$query = $mysqli->query($sql);
 				$row = $query->num_rows;
 				if ($row>0){
-					echo"Logado";
 				}else{
 					echo"Erro";
 					die();
@@ -73,6 +71,65 @@
 					}
 				}
 			}
+		}
+		
+		
+		//Atualizar Fornecedor
+		
+		public function atualizarFornecedor($userUp,$senhaa,$rasao,$fantasia,$cnpj,$cgf,$rua,$numeroCasa,$complemento,$bairro,$telefone,$uf,$cidade,$nomeBanco,$agencia,$contaCorrente,$socio,$qtdeSocios,$idFornecedor){
+			
+			include("conexao.php");
+			$sql1 = "UPDATE fornecedores SET rasao = '$rasao', fantasia = '$fantasia', cnpj = '$cnpj', cgf = '$cgf', rua = '$rua', numeroCasa = '$numeroCasa', complemento = '$complemento', bairro = '$bairro', telefone = '$telefone', uf = '$uf', cidade = '$cidade', nomeBanco = '$nomeBanco', agencia = '$agencia', contaCorrente = '$contaCorrente' WHERE id = '$idFornecedor'";
+			if($mysqli->query($sql1)){
+				echo "Atualizado";
+			}else{
+				echo "Houve um erro! tente novamente";
+				echo $mysqli->error;
+			}
+			$sql3 = "DELETE FROM socios WHERE vinculo='$idFornecedor'";
+			if($mysqli->query($sql3)){
+				echo "Deletado";
+			}else{
+				echo "Houve um erro! tente novamente";
+				echo $mysqli->error;
+			}
+			if($userUp!=""){
+				$sql2 = "UPDATE login SET usuario = '$userUp' WHERE vinculo = '$idFornecedor'";
+				if($mysqli->query($sql2)){
+					echo "Usuario Alterado";
+					setcookie(md5('usuariofpslavras'),$userUp);
+				}else{
+					echo "Houve um erro! tente novamente";
+					echo $mysqli->error;
+				}
+			}
+			if($senhaa!=""){
+				$sql5 = "UPDATE login SET senha = '$senhaa' WHERE vinculo = '$idFornecedor'";
+				if($mysqli->query($sql5)){
+					echo "Senha Alterada";
+					setcookie(md5('senhafpslavras'),$senhaa);
+				}else{
+					echo "Houve um erro! tente novamente";
+					echo $mysqli->error;
+				}
+			}
+			for($j = 0; $j < $qtdeSocios; $j++){
+					$nomeSocio = $socio[$j]->nome;
+					$cpfSocio = $socio[$j]->cpf;
+					$quantiSocio = $socio[$j]->quantificacaoSocio;
+					$telSocio = $socio[$j]->telefoneSocios;
+					$celSocio = $socio[$j]->celularSocio;
+					$mailSocio = $socio[$j]->emailSocio;
+					if(($nomeSocio!="") and ($cpfSocio!="") and ($quantiSocio!="") and ($telSocio!="") and ($celSocio!="") and ($mailSocio!="")){
+						$sql4 = "INSERT INTO socios VALUES(null, '$nomeSocio','$cpfSocio','$quantiSocio','$telSocio','$celSocio','$mailSocio','$idFornecedor')";
+						if($mysqli->query($sql4)){
+						}else{
+							echo "Houve um erro! tente novamente";
+							echo $mysqli->error;
+						}
+					}
+			}
+			header('Location: inicio.php');
 		}
 	}
 ?>

@@ -24,6 +24,14 @@ function validar(){
 	}
 	
 }
+function atualizarCadastro(){
+	var cnpj = $("#cnpj").val();
+	if(!validarCNPJ(cnpj)){
+		alert("CNPJ inválido");
+	}else{
+		$('#cadastro').submit();
+	}
+}
 
 function verificarVazio(campo){
 	if (campo == ""){
@@ -91,4 +99,10 @@ function validarCNPJ(cnpj) {
            
     return true;
     
+}
+function editar(){
+	$("input.validate").attr("disabled", false);
+	$('#op').append("<div class='green left btn waves-effect waves-light center block' id='buttonMais' onclick='adicionarCampos()'>Adicionar<i class='add material-icons center'>add_circle</i></div>");
+	$('#cadastro').append("<button class='green right btn waves-effect waves-light block' type='button' name='action' onclick='atualizarCadastro()'>Atualizar<i class='material-icons right'>update</i></button>");
+	$('#editButton').remove();
 }
