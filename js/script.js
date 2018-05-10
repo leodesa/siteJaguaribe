@@ -1,3 +1,5 @@
+$(".dropdown-trigger").dropdown();
+
 function validar(){
 	var usuario = $("#usuarioCad").val();
 	var senha = $("#senha").val();

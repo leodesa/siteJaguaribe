@@ -59,6 +59,11 @@
 v{
 	color: #F00;
 }
+#documentos{
+	width: 60%;
+	margin-left: 20%;
+	margin-bottom: 5%;
+}
 
 
 @media only screen and (max-width: 890px) {
