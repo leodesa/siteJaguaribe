@@ -25,8 +25,7 @@
 				$row = $query->num_rows;
 				if ($row>0){
 				}else{
-					echo"Erro";
-					die();
+					header('Location: index.php');
 				}
 			}
 		}
@@ -53,6 +52,7 @@
 				echo "Houve um erro! tente novamente";
 				echo $mysqli->error;
 			}
+				mkdir(__DIR__."/rasao", 0700, true);
 			for($j = 0; $j < $qtdeSocios; $j++){
 				if($socio[$j]!=""){
 					$nomeSocio = $socio[$j]->nome;

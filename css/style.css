@@ -41,6 +41,13 @@
 	color: #45916B;
 	font-size: 15px;
 }
+#C3{
+	color: #45916B;
+	font-size: 20px;
+}
+.btn{
+	background-color: #45916B !important; 
+}
 #titulo{
 	font-size: 200%;
 	color: #45916B;

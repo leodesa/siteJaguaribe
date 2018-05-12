@@ -3,8 +3,12 @@
 	include("conexao.php");
 	$CRUD = new CRUD;
 	$CRUD->verificarCookie();
-	$userUpdate = $_COOKIE[md5('usuariofpslavras')];
-	$senhaUpdate = $_COOKIE[md5('senhafpslavras')];
+  if (isset($_COOKIE[md5('usuariofpslavras')]) and isset($_COOKIE[md5('senhafpslavras')])){
+	   $userUpdate = $_COOKIE[md5('usuariofpslavras')];
+	   $senhaUpdate = $_COOKIE[md5('senhafpslavras')];
+  }else{
+    header("Location: index.php");
+  }
 	$sql2 = mysqli_query($mysqli, "SELECT fornecedores.rasao, fornecedores.fantasia, fornecedores.cnpj, fornecedores.cgf, fornecedores.rua, fornecedores.numeroCasa,
 	fornecedores.complemento, fornecedores.bairro, fornecedores.telefone, fornecedores.uf, fornecedores.cidade, fornecedores.nomeBanco, fornecedores.agencia, fornecedores.contaCorrente,
 	fornecedores.id FROM fornecedores JOIN login WHERE login.usuario = '$userUpdate' AND login.senha = '$senhaUpdate' AND login.vinculo = fornecedores.id");
@@ -72,12 +76,23 @@
 </script>
 </head>
 <body>
+  <div class="navbar-fixed">
+    <ul id="dropdown1" class="dropdown-content">
+      <li><a href="menuUsuario.php">Inserir</a></li>
+      <li><a href="#">Editar</a></li>
+          <li><a href="#">Apagar</a></li>
+        </ul>
   <nav class="green lighten-1" role="navigation">
-    <div class="nav-wrapper container">
-      <img id="logo" src="img/logo.png">
-      <a id="logo-container" href="index.php" class="brand-logo">Prefeitura Municipal de Lavras da Mangabeira</a>
-    </div>
-  </nav>
+      <div class="nav-wrapper container">
+        <img id="logo" src="img/logo.png" class="left">
+        <a id="logo-container" href="index.php" class="brand-logo">Sistema Lavras</a>
+        <ul class="right hide-on-med-and-down">
+                <li><a class="dropdown-trigger" href="#!" data-target="dropdown1" style="outline:none;">Documentos<i class="material-icons right">arrow_drop_down</i></a></li>
+              <li><a href="logout.php">Sair</a></li>
+              </ul>   
+        </div>
+      </nav>
+      </div>
 <h1 id="titulo" class="center">Dados de Cadastro Fornecedores e Prestadores de Serviços</h1>
     <div class="cadastro row">
     <form name="cadastro" id="cadastro" class="col s12" method="POST" action="DAO.php">
