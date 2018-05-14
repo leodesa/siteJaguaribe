@@ -10,9 +10,10 @@
 				setcookie(md5('senhafpslavras'),$pass);
 				header("Location: inicio.php");
 			}else{
-				echo"Erro";
-				header("Location: index.php");
-				die();
+				echo ("<script>
+					window.alert('Dados Incorretos!')
+					window.location.href='index.php';
+				</script>");
 			}
 		}
 		public function verificarCookie(){
@@ -52,7 +53,7 @@
 				echo "Houve um erro! tente novamente";
 				echo $mysqli->error;
 			}
-				mkdir(__DIR__."/rasao", 0700, true);
+				mkdir("/xampp/htdocs/siteJaguaribe/arquivos/".$rasao."-".$cnpj."/");
 			for($j = 0; $j < $qtdeSocios; $j++){
 				if($socio[$j]!=""){
 					$nomeSocio = $socio[$j]->nome;
