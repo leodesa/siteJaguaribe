@@ -54,6 +54,15 @@
 				echo $mysqli->error;
 			}
 				mkdir("/xampp/htdocs/siteJaguaribe/arquivos/".$rasao."-".$cnpj."/");
+				$pasta = $rasao."-".$cnpj;
+			$sql5 = "INSERT INTO pasta VALUES(null, '$pasta','$id')";
+			if($mysqli->query($sql5)){
+				echo "Salvo";
+				header('Location: cadastro.php');
+			}else{
+				echo "Houve um erro! tente novamente";
+				echo $mysqli->error;
+			}
 			for($j = 0; $j < $qtdeSocios; $j++){
 				if($socio[$j]!=""){
 					$nomeSocio = $socio[$j]->nome;

@@ -40,12 +40,12 @@
     <h1 id="titulo" class="center">Inserção de Documentos</h1>
 
     <div id="documentos">
-    <form action="#">
+    <form action="DAO.php" id="formFile" name="formFile" method="POST" enctype="multipart/form-data">
     <label id="C3">Contrato Social e Aditivos <v>*</v></label>
     <div class="file-field input-field">
       <div class="btn">
         <span>Selecione o Arquivo</span>
-        <input type="file">
+        <input type="file" name="fileUpload">
       </div>
       <div class="file-path-wrapper">
         <input class="file-path validate" type="text">
@@ -270,7 +270,7 @@ Engenharia)</label>
         <input type="date" class="validate">
         <label id="C2">Validade</label>
     </div>
-    <button class="green right btn waves-effect waves-light block" type="button" name="action">Salvar
+    <button class="green right btn waves-effect waves-light block" type="button" onclick="document.getElementById('formFile').submit();" name="action">Salvar
         <i class="material-icons right">send</i>
     </button>
     <br>
