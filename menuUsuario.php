@@ -41,22 +41,31 @@
 
     <div id="documentos">
     <form action="DAO.php" id="formFile" name="formFile" method="POST" enctype="multipart/form-data">
+	<?php
+		$compU = $_COOKIE[md5('usuariofpslavras')];
+		$compS = $_COOKIE[md5('senhafpslavras')];
+		$sql2 = mysqli_query($mysqli, "SELECT fornecedores.id FROM login JOIN fornecedores WHERE login.usuario = '$compU' AND login.senha = '$compS' AND login.vinculo = fornecedores.id");
+			while($valor = mysqli_fetch_array($sql2)){
+				$id = $valor[0];
+				echo "<input type='hidden' value='$id' name='idPasta' />";
+			}
+	?>
     <label id="C3">Contrato Social e Aditivos <v>*</v></label>
     <div class="file-field input-field">
       <div class="btn">
         <span>Selecione o Arquivo</span>
-        <input type="file" name="fileUpload">
+        <input type="file" name="arquivo1">
       </div>
       <div class="file-path-wrapper">
         <input class="file-path validate" type="text">
       </div>
     </div>
     <div class="input-field">
-        <input type="date" class="validate">
+        <input type="date" class="validate" name="emissao1">
         <label id="C2">Emissão</label>
     </div>
     <div class="input-field">
-        <input type="date" class="validate">
+        <input type="date" class="validate" name="validade1">
         <label id="C2">Validade</label>
     </div>
     <br>
@@ -64,18 +73,18 @@
     <div class="file-field input-field">
       <div class="btn">
         <span>Selecione o Arquivo</span>
-        <input type="file">
+        <input type="file" name="arquivo2">
       </div>
       <div class="file-path-wrapper">
         <input class="file-path validate" type="text">
       </div>
     </div>
     <div class="input-field">
-        <input type="date" class="validate">
+        <input type="date" class="validate" name="emissao2">
         <label id="C2">Emissão</label>
     </div>
     <div class="input-field">
-        <input type="date" class="validate">
+        <input type="date" class="validate" name="validade2">
         <label id="C2">Validade</label>
     </div>
     <br>
@@ -83,18 +92,18 @@
     <div class="file-field input-field">
       <div class="btn">
         <span>Selecione o Arquivo</span>
-        <input type="file">
+        <input type="file" name="arquivo3">
       </div>
       <div class="file-path-wrapper">
         <input class="file-path validate" type="text">
       </div>
     </div>
     <div class="input-field">
-        <input type="date" class="validate">
+        <input type="date" class="validate" name="emissao3">
         <label id="C2">Emissão</label>
     </div>
     <div class="input-field">
-        <input type="date" class="validate">
+        <input type="date" class="validate" name="validade3">
         <label id="C2">Validade</label>
     </div>
     <br>
@@ -102,18 +111,18 @@
     <div class="file-field input-field">
       <div class="btn">
         <span>Selecione o Arquivo</span>
-        <input type="file">
+        <input type="file" name="arquivo4">
       </div>
       <div class="file-path-wrapper">
         <input class="file-path validate" type="text">
       </div>
     </div>
     <div class="input-field">
-        <input type="date" class="validate">
+        <input type="date" class="validate" name="emissao4">
         <label id="C2">Emissão</label>
     </div>
     <div class="input-field">
-        <input type="date" class="validate">
+        <input type="date" class="validate" name="validade4">
         <label id="C2">Validade</label>
     </div>
     <br>
@@ -121,18 +130,18 @@
     <div class="file-field input-field">
       <div class="btn">
         <span>Selecione o Arquivo</span>
-        <input type="file">
+        <input type="file" name="arquivo5">
       </div>
       <div class="file-path-wrapper">
         <input class="file-path validate" type="text">
       </div>
     </div>
     <div class="input-field">
-        <input type="date" class="validate">
+        <input type="date" class="validate" name="emissao5">
         <label id="C2">Emissão</label>
     </div>
     <div class="input-field">
-        <input type="date" class="validate">
+        <input type="date" class="validate" name="validade5">
         <label id="C2">Validade</label>
     </div>
     <br>
@@ -140,18 +149,18 @@
     <div class="file-field input-field">
       <div class="btn">
         <span>Selecione o Arquivo</span>
-        <input type="file">
+        <input type="file" name="arquivo6">
       </div>
       <div class="file-path-wrapper">
         <input class="file-path validate" type="text">
       </div>
     </div>
     <div class="input-field">
-        <input type="date" class="validate">
+        <input type="date" class="validate" name="emissao6">
         <label id="C2">Emissão</label>
     </div>
     <div class="input-field">
-        <input type="date" class="validate">
+        <input type="date" class="validate" name="validade6">
         <label id="C2">Validade</label>
     </div>
     <br>
@@ -159,18 +168,18 @@
     <div class="file-field input-field">
       <div class="btn">
         <span>Selecione o Arquivo</span>
-        <input type="file">
+        <input type="file" name="arquivo7">
       </div>
       <div class="file-path-wrapper">
         <input class="file-path validate" type="text">
       </div>
     </div>
     <div class="input-field">
-        <input type="date" class="validate">
+        <input type="date" class="validate" name="emissao7">
         <label id="C2">Emissão</label>
     </div>
     <div class="input-field">
-        <input type="date" class="validate">
+        <input type="date" class="validate" name="validade7">
         <label id="C2">Validade</label>
     </div>
     <br>
@@ -178,18 +187,18 @@
     <div class="file-field input-field">
       <div class="btn">
         <span>Selecione o Arquivo</span>
-        <input type="file">
+        <input type="file" name="arquivo8">
       </div>
       <div class="file-path-wrapper">
         <input class="file-path validate" type="text">
       </div>
     </div>
     <div class="input-field">
-        <input type="date" class="validate">
+        <input type="date" class="validate" name="emissao8">
         <label id="C2">Emissão</label>
     </div>
     <div class="input-field">
-        <input type="date" class="validate">
+        <input type="date" class="validate" name="validade8">
         <label id="C2">Validade</label>
     </div>
     <br>
@@ -197,18 +206,18 @@
     <div class="file-field input-field">
       <div class="btn">
         <span>Selecione o Arquivo</span>
-        <input type="file">
+        <input type="file" name="arquivo9">
       </div>
       <div class="file-path-wrapper">
         <input class="file-path validate" type="text">
       </div>
     </div>
     <div class="input-field">
-        <input type="date" class="validate">
+        <input type="date" class="validate" name="emissao9">
         <label id="C2">Emissão</label>
     </div>
     <div class="input-field">
-        <input type="date" class="validate">
+        <input type="date" class="validate" name="validade9">
         <label id="C2">Validade</label>
     </div>
     <br>
@@ -216,18 +225,18 @@
     <div class="file-field input-field">
       <div class="btn">
         <span>Selecione o Arquivo</span>
-        <input type="file">
+        <input type="file" name="arquivo10">
       </div>
       <div class="file-path-wrapper">
         <input class="file-path validate" type="text">
       </div>
     </div>
     <div class="input-field">
-        <input type="date" class="validate">
+        <input type="date" class="validate" name="emissao10">
         <label id="C2">Emissão</label>
     </div>
     <div class="input-field">
-        <input type="date" class="validate">
+        <input type="date" class="validate" name="validade10">
         <label id="C2">Validade</label>
     </div>
     <br>
@@ -236,18 +245,18 @@ optante do Simples Nacional, estão dispensadas)</label>
     <div class="file-field input-field">
       <div class="btn">
         <span>Selecione o Arquivo</span>
-        <input type="file">
+        <input type="file" name="arquivo11">
       </div>
       <div class="file-path-wrapper">
         <input class="file-path validate" type="text">
       </div>
     </div>
     <div class="input-field">
-        <input type="date" class="validate">
+        <input type="date" class="validate" name="emissao11">
         <label id="C2">Emissão</label>
     </div>
     <div class="input-field">
-        <input type="date" class="validate">
+        <input type="date" class="validate" name="validade11">
         <label id="C2">Validade</label>
     </div>
         <br>
@@ -256,18 +265,18 @@ Engenharia)</label>
     <div class="file-field input-field">
       <div class="btn">
         <span>Selecione o Arquivo</span>
-        <input type="file">
+        <input type="file" name="arquivo12">
       </div>
       <div class="file-path-wrapper">
         <input class="file-path validate" type="text">
       </div>
     </div>
     <div class="input-field">
-        <input type="date" class="validate">
+        <input type="date" class="validate" name="emissao12">
         <label id="C2">Emissão</label>
     </div>
     <div class="input-field">
-        <input type="date" class="validate">
+        <input type="date" class="validate" name="validade12">
         <label id="C2">Validade</label>
     </div>
     <button class="green right btn waves-effect waves-light block" type="button" onclick="document.getElementById('formFile').submit();" name="action">Salvar
