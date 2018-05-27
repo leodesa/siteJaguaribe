@@ -20,23 +20,7 @@
 </head>
 
 <body>
-	<div class="navbar-fixed">
-		<ul id="dropdown1" class="dropdown-content">
-		  <li><a href="#!">Inserir</a></li>
- 	 	  <li><a href="#!">Editar</a></li>
-          <li><a href="#!">Apagar</a></li>
-        </ul>
-	  <nav class="green lighten-1" role="navigation">
-		  <div class="nav-wrapper container">
-			  <img id="logo" src="img/logo.png" class="left">
-			  <a id="logo-container" href="index.php" class="brand-logo">Sistema Lavras</a>
-			  <ul class="right hide-on-med-and-down">
-          	  	<li><a class="dropdown-trigger" href="#!" data-target="dropdown1" style="outline:none;">Documentos<i class="material-icons right">arrow_drop_down</i></a></li>
-          		<li><a href="logout.php">Sair</a></li>
-          	  </ul> 	
-    	  </div>
-  	  </nav>
-  	</div>
+	<?php include('include/menu.php'); ?>
     <h1 id="titulo" class="center">Inserção de Documentos</h1>
 
     <div id="documentos">
@@ -202,7 +186,7 @@
         <label id="C2">Validade</label>
     </div>
     <br>
-    <label id="C3">Certidão de Reguraridade com FGTS <v>*</v></label>
+    <label id="C3">Certidão de Regularidade com FGTS <v>*</v></label>
     <div class="file-field input-field">
       <div class="btn">
         <span>Selecione o Arquivo</span>
@@ -221,7 +205,7 @@
         <label id="C2">Validade</label>
     </div>
     <br>
-    <label id="C3">Certidão Falencia <v>*</v></label>
+    <label id="C3">Certidão Falência <v>*</v></label>
     <div class="file-field input-field">
       <div class="btn">
         <span>Selecione o Arquivo</span>
@@ -279,7 +263,7 @@ Engenharia)</label>
         <input type="date" class="validate" name="validade12">
         <label id="C2">Validade</label>
     </div>
-    <button class="green right btn waves-effect waves-light block" type="button" onclick="document.getElementById('formFile').submit();" name="action">Salvar
+    <button class="green right btn waves-effect waves-light block" type="button" onclick="document.getElementById('formFile').submit();" name="action">Enviar
         <i class="material-icons right">send</i>
     </button>
     <br>

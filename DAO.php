@@ -124,7 +124,7 @@
 				// Tamanho máximo do arquivo (em Bytes)
 				$_UP['tamanho'] = 1024 * 1024 * 2; // 2Mb
 				// Array com as extensões permitidas
-				$_UP['extensoes'] = array('pdf', 'doc', 'docx');
+				$_UP['extensoes'] = array('pdf', 'doc', 'docx','jpeg','jpg','png');
 				// Renomeia o arquivo? (Se true, o arquivo será salvo como .jpg e um nome único)
 				$_UP['renomeia'] = false;
 				// Array com os tipos de erros de upload do PHP
@@ -163,7 +163,7 @@
 				  echo "Não foi possível enviar o arquivo, tente novamente";
 				}
 				
-				$sql4 = "INSERT INTO arquivos VALUES(null, '$nome_final','','$emissao','$validade','$idPasta','1')";
+				$sql4 = "INSERT INTO arquivos VALUES(null, '$nome_final','$i','$emissao','$validade','$idPasta','1')";
 				if($mysqli->query($sql4)){
 					echo "Salvo";
 					header('Location: menuUsuario.php');

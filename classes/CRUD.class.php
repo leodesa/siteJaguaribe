@@ -1,4 +1,5 @@
 <?php
+	$tipoArquivo = array("Contrato Social e Aditivos", "CNPJ", "Inscrição Municipal", "CGF", "RG e CPF", "Certidão Federal (Portaria nº1751 02/10/2014)","Certidão Estadual", "Certidão Municipal", "Certidão de Regularidade com FGTS","Certidão Falência","Balanço Patrimonial (Conforme Lei 123 das empresas ME/EPP optante do Simples Nacional, estão dispensadas)", "CREA (se for o caso Construção ou Prestador de Serviços de Engenharia)");
 	class CRUD{
 		public function verificarLogin($usuario, $pass){
 			include("conexao.php");

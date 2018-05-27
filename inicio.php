@@ -79,8 +79,7 @@
   <div class="navbar-fixed">
 		<ul id="dropdown1" class="dropdown-content">
 		  <li><a href="menuUsuario.php">Inserir</a></li>
- 	 	  <li><a href="#!">Editar</a></li>
-          <li><a href="#!">Apagar</a></li>
+ 	 	  <li><a href="visualizarDoc.php">Visualizar</a></li>
         </ul>
 	  <nav class="green lighten-1" role="navigation">
 		  <div class="nav-wrapper container">
