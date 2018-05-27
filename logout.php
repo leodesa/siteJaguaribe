@@ -1,5 +1,5 @@
 <?php
-	setcookie('usuariofpslavras');
-	setcookie('senhafpslavras');
+	setcookie(md5('usuariofpslavras'));
+	setcookie(md5('senhafpslavras'));
 	header('Location: index.php');
 ?>

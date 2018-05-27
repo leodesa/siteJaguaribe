@@ -143,7 +143,6 @@
 				$extensao = ltrim( substr(  $_FILES['arquivo'.$i]['name'], strrpos(  $_FILES['arquivo'.$i]['name'], '.' ) ), '.' );
 				if (array_search($extensao, $_UP['extensoes']) === false) {
 					echo("<script type='text/javascript'> alert('Por favor, envie arquivos com as seguintes extensões: pdf, doc, docx,jpg ou png'); location.href='menuUsuario.php';</script>");
-					echo "Por favor, envie arquivos com as seguintes extensões: pdf, doc, docx,jpg ou png";
 					exit;
 				}
 				// Faz a verificação do tamanho do arquivo
@@ -159,19 +158,15 @@
 				// Depois verifica se é possível mover o arquivo para a pasta escolhida
 				if (move_uploaded_file($_FILES['arquivo'.$i]['tmp_name'], $_UP['pasta'] . $nome_final)) {
 				  // Upload efetuado com sucesso, exibe uma mensagem e um link para o arquivo
-				  echo "Upload efetuado com sucesso!";
 				} else {
 				  // Não foi possível fazer o upload, provavelmente a pasta está incorreta
-				  echo "Não foi possível enviar o arquivo, tente novamente";
 				}
 				
 				$sql4 = "INSERT INTO arquivos VALUES(null, '$nome_final','$i','$emissao','$validade','$idPasta','1')";
 				if($mysqli->query($sql4)){
-					echo "Salvo";
-					header('Location: menuUsuario.php');
+					echo("<script type='text/javascript'> alert('Upload efetuado com sucesso!'); location.href='visualizarDoc.php';</script>");
 				}else{
-					echo "Houve um erro! tente novamente";
-					echo $mysqli->error;
+					echo("<script type='text/javascript'> alert('Houve um erro! tente novamente'); location.href='visualizarDoc.php';</script>");
 				}
 			}
 		}

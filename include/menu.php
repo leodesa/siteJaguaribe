@@ -8,6 +8,7 @@
 			  <img id="logo" src="img/logo.png" class="left">
 			  <a id="logo-container" href="index.php" class="brand-logo">Sistema Lavras</a>
 			  <ul class="right hide-on-med-and-down">
+				<li><a href="inicio.php">Inicio</a></li>
           	  	<li><a class="dropdown-trigger" href="#!" data-target="dropdown1" style="outline:none;">Documentos<i class="material-icons right">arrow_drop_down</i></a></li>
           		<li><a href="logout.php">Sair</a></li>
           	  </ul> 	

@@ -24,6 +24,12 @@
 		public function verificarCookie(){
 			include("conexao.php");
 			if (isset($_COOKIE[md5('usuariofpslavras')]) and isset($_COOKIE[md5('senhafpslavras')])){
+			   $userUpdate = $_COOKIE[md5('usuariofpslavras')];
+			   $senhaUpdate = $_COOKIE[md5('senhafpslavras')];
+			}else{
+				header("Location: index.php");
+			}
+			if (isset($_COOKIE[md5('usuariofpslavras')]) and isset($_COOKIE[md5('senhafpslavras')])){
 				$usuarioCookie = $_COOKIE[md5('usuariofpslavras')];
 				$senhaCookie = $_COOKIE[md5('senhafpslavras')];
 				$sql = "SELECT * FROM login WHERE usuario='$usuarioCookie' AND senha='$senhaCookie'" or die("Erro ao selecionar");
