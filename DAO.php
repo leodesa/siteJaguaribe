@@ -106,7 +106,7 @@
 		$CRUD = new CRUD;
 		$CRUD->atualizarFornecedor($userUp,$senhaa,$rasao,$fantasia,$cnpj,$cgf,$rua,$numeroCasa,$complemento,$bairro,$telefone,$uf,$cidade,$nomeBanco,$agencia,$contaCorrente,$socio,$qtdeSocios,$id);
 	}
-	if(isset($_FILES['arquivo1'])){
+	if(isset($_POST['idPasta'])){
 		include("conexao.php");
 		$idPasta = $_POST['idPasta'];
 		$sql2 = mysqli_query($mysqli, "SELECT fornecedores.rasao, fornecedores.cnpj FROM fornecedores WHERE id = '$idPasta'");
@@ -116,11 +116,10 @@
 			}
 			$_UP['pasta'] = "arquivos/".$rasao."-".$cnpj."/";
 		for ($i=1; $i<13; $i++){
-			if(isset($_FILES['arquivo'.$i])){
+			if(is_uploaded_file($_FILES['arquivo'.$i]['tmp_name'])){
 				$arquivo = $_FILES['arquivo'.$i];
 				$emissao = $_POST['emissao'.$i];
 				$validade = $_POST['validade'.$i];
-				// Pasta onde o arquivo vai ser salvo
 				// Tamanho máximo do arquivo (em Bytes)
 				$_UP['tamanho'] = 1024 * 1024 * 2; // 2Mb
 				// Array com as extensões permitidas
@@ -135,20 +134,23 @@
 				$_UP['erros'][4] = 'Não foi feito o upload do arquivo';
 				// Verifica se houve algum erro com o upload. Se sim, exibe a mensagem do erro
 				if ($_FILES['arquivo'.$i]['error'] != 0) {
-				  die("Não foi possível fazer o upload, erro:" . $_UP['erros'][$_FILES['arquivo'.$i]['error']]);
-				  exit; // Para a execução do script
+					echo("<script type='text/javascript'> alert('Não foi possível fazer o upload, erro: " . $_UP['erros'][$_FILES['arquivo'.$i]['error']]."'); location.href='menuUsuario.php';</script>");
+					die("Não foi possível fazer o upload, erro:" . $_UP['erros'][$_FILES['arquivo'.$i]['error']]);
+					exit; // Para a execução do script
 				}
 				// Caso script chegue a esse ponto, não houve erro com o upload e o PHP pode continuar
 				// Faz a verificação da extensão do arquivo
 				$extensao = ltrim( substr(  $_FILES['arquivo'.$i]['name'], strrpos(  $_FILES['arquivo'.$i]['name'], '.' ) ), '.' );
 				if (array_search($extensao, $_UP['extensoes']) === false) {
-				  echo "Por favor, envie arquivos com as seguintes extensões: pdf, doc ou docx";
-				  exit;
+					echo("<script type='text/javascript'> alert('Por favor, envie arquivos com as seguintes extensões: pdf, doc, docx,jpg ou png'); location.href='menuUsuario.php';</script>");
+					echo "Por favor, envie arquivos com as seguintes extensões: pdf, doc, docx,jpg ou png";
+					exit;
 				}
 				// Faz a verificação do tamanho do arquivo
 				if ($_UP['tamanho'] < $_FILES['arquivo'.$i]['size']) {
-				  echo "O arquivo enviado é muito grande, envie arquivos de até 2Mb.";
-				  exit;
+					echo("<script type='text/javascript'> alert('O arquivo enviado é muito grande, envie arquivos de até 2Mb.'); location.href='menuUsuario.php';</script>");
+					echo "O arquivo enviado é muito grande, envie arquivos de até 2Mb.";
+					exit;
 				}
 				// O arquivo passou em todas as verificações, hora de tentar movê-lo para a pasta
 				  // Cria um nome baseado no UNIX TIMESTAMP atual e com extensão .jpg
@@ -171,7 +173,7 @@
 					echo "Houve um erro! tente novamente";
 					echo $mysqli->error;
 				}
-		}
+			}
 		}
 	}
 ?>

@@ -44,24 +44,36 @@
 			while($valor = mysqli_fetch_array($sql2)){
 				$id = $valor[0];
 			}
-		echo "<table class='highlight'>
-        <thead>
-          <tr>
-              <th>Nome do arquivo</th>
-              <th>Tipo</th>
-              <th>Opções</th>
-              <th></th>
-          </tr>
-        </thead>
-
-        <tbody>"; 
-		$sql2 = mysqli_query($mysqli, "SELECT arquivos.nomeArquivo, fornecedores.rasao, fornecedores.cnpj, arquivos.tipoArquivo 
+		$sql2 = mysqli_query($mysqli, "SELECT arquivos.nomeArquivo, fornecedores.rasao, fornecedores.cnpj, arquivos.tipoArquivo , arquivos.emissao , arquivos.validade, arquivos.situacao
 		FROM arquivos JOIN fornecedores WHERE arquivos.vinculo = '$id' AND arquivos.vinculo = fornecedores.id");
 			while($valor = mysqli_fetch_array($sql2)){
-				echo "<tr><td>".$valor[0]."</td><td>".$CRUD->VerificarTipoArquivo($valor[3])."</td><td><a href='arquivos/".$valor[1]."-".$valor[2]."/".$valor[0]."' target='_blank'>Visualizar</a></td><td><a onclick='excluirArquivo(\"arquivos/".$valor[1]."-".$valor[2]."/".$valor[0]."\",\"".$valor[0]."\")'>Excluir</a></td></tr>";
+				//Aguardando análise
+				if($valor[6]==1){
+					$sit = "access_time";
+					$sit2 = "Em análise";
+				}else
+				//Aprovado
+				if($valor[6]==2){
+					$sit = "done";
+					$sit2 = "Aprovado na análise";
+				}else{
+					$sit = "close";
+					$sit2 = "Reprovado na análise";
+				}
+				echo "<ul class='collection'>
+    <li class='collection-item avatar'>
+      <i class='small material-icons'>insert_drive_file</i>
+	  <span class='title'><b>".$valor[0]."</b></span>
+      <p>Tipo de arquivo: ".$CRUD->VerificarTipoArquivo($valor[3])."<br>
+         Data de emissão: ".date('d/m/Y',strtotime($valor[4]))."<br>
+         Data de validade: ".date('d/m/Y',strtotime($valor[5]))."<br>
+         Situação:  <i class='tiny material-icons'>".$sit."</i> $sit2<br>
+      </p><br>
+	  <a class='waves-effect waves-light btn' target='_blank' href='arquivos/".$valor[1]."-".$valor[2]."/".$valor[0]."'><i class='material-icons left'>visibility</i>Visualizar</a>
+	  <a class='waves-effect waves-light btn' onclick='if(confirm(\"Você realmente deseja excluir este arquivo?\")){excluirArquivo(\"arquivos/".$valor[1]."-".$valor[2]."/".$valor[0]."\",\"".$valor[0]."\");}'><i class='material-icons left'>delete</i>Deletar</a>
+    </li>
+  </ul>";
 			}
-		echo "</tbody>
-      </table>";
 		?>
 	</div>
 	<form method="POST" action="visualizarDoc.php" id="formArquivos">
