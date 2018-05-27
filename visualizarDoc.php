@@ -36,7 +36,8 @@
           <tr>
               <th>Nome do arquivo</th>
               <th>Tipo</th>
-              <th>Op</th>
+              <th>Opções</th>
+              <th></th>
           </tr>
         </thead>
 
@@ -44,7 +45,7 @@
 		$sql2 = mysqli_query($mysqli, "SELECT arquivos.nomeArquivo, fornecedores.rasao, fornecedores.cnpj, arquivos.tipoArquivo 
 		FROM arquivos JOIN fornecedores WHERE arquivos.vinculo = '$id' AND arquivos.vinculo = fornecedores.id");
 			while($valor = mysqli_fetch_array($sql2)){
-				echo "<tr><td>".$valor[0]."</td><td>".$CRUD->tipoArquivo[$valor[3]]."</td><td><a href='arquivos/".$valor[1]."-".$valor[2]."/".$valor[0]."' target='_blank'>Visualizar</a></td></tr>";
+				echo "<tr><td>".$valor[0]."</td><td>".$CRUD->VerificarTipoArquivo($valor[3])."</td><td><a href='arquivos/".$valor[1]."-".$valor[2]."/".$valor[0]."' target='_blank'>Visualizar</a></td><td><a href='arquivos/".$valor[1]."-".$valor[2]."/".$valor[0]."' target='_blank'>Excluir</a></td></tr>";
 			}
 		echo "</tbody>
       </table>";
