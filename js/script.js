@@ -42,6 +42,11 @@ function verificarVazio(campo){
 	return false;
 }
 
+function excluirArquivo(a,b){
+	$("#nomeArquivo").val(b);
+	$("#exclusao").val(a);
+	$("#formArquivos").submit();
+}
 function verificarSenha(){
 	if ($("#senha").val() === $("#senhaConf").val()){
 		return true;

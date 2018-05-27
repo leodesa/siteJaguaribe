@@ -3,6 +3,19 @@
   include("conexao.php");
   $CRUD = new CRUD;
   $CRUD->verificarCookie();
+  
+  if(isset($_POST['exclusao'])){
+	  $caminho = $_POST['exclusao'];
+	unlink($caminho);
+	$nomeAr = $_POST['nomeArquivo'];
+	$sqlll = "DELETE FROM arquivos WHERE nomeArquivo = '$nomeAr'";
+	if($mysqli->query($sqlll)){
+		echo("<script type='text/javascript'> alert('$nomeAr excluido com sucesso!'); location.href='visualizarDoc.php';</script>");
+
+	}else{
+		echo("<script type='text/javascript'> alert('Houve um erro! tente novamente'); location.href='visualizarDoc.php';</script>");
+	}
+  }
 ?>
 <!DOCTYPE html>
 <html lang="br">
@@ -45,12 +58,16 @@
 		$sql2 = mysqli_query($mysqli, "SELECT arquivos.nomeArquivo, fornecedores.rasao, fornecedores.cnpj, arquivos.tipoArquivo 
 		FROM arquivos JOIN fornecedores WHERE arquivos.vinculo = '$id' AND arquivos.vinculo = fornecedores.id");
 			while($valor = mysqli_fetch_array($sql2)){
-				echo "<tr><td>".$valor[0]."</td><td>".$CRUD->VerificarTipoArquivo($valor[3])."</td><td><a href='arquivos/".$valor[1]."-".$valor[2]."/".$valor[0]."' target='_blank'>Visualizar</a></td><td><a href='arquivos/".$valor[1]."-".$valor[2]."/".$valor[0]."' target='_blank'>Excluir</a></td></tr>";
+				echo "<tr><td>".$valor[0]."</td><td>".$CRUD->VerificarTipoArquivo($valor[3])."</td><td><a href='arquivos/".$valor[1]."-".$valor[2]."/".$valor[0]."' target='_blank'>Visualizar</a></td><td><a onclick='excluirArquivo(\"arquivos/".$valor[1]."-".$valor[2]."/".$valor[0]."\",\"".$valor[0]."\")'>Excluir</a></td></tr>";
 			}
 		echo "</tbody>
       </table>";
 		?>
 	</div>
+	<form method="POST" action="visualizarDoc.php" id="formArquivos">
+		<input type="hidden" value="" name="nomeArquivo" id="nomeArquivo" />
+		<input type="hidden" value="" name="exclusao" id="exclusao" />
+	</form>
   <footer class="page-footer green">
     <div class="container">
       <div class="row">
