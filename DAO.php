@@ -14,9 +14,7 @@
         $query = $mysqli->query($sql);
 		$linhas = $query->num_rows;
 		if ($linhas>0){
-			echo"<script>alert('Nome de usuário já cadastrado!');</script>";
-			header("Location:cadastro.php");
-            die();
+			echo("<script type='text/javascript'> alert('Nome de usuário já cadastrado!'); location.href='cadastro.php';</script>");
 		}
 		$rasao = $_POST['rasaoSocial'];
 		$fantasia = $_POST['fantasia'];
@@ -63,9 +61,7 @@
 			$query = $mysqli->query($sql);
 			$linhas = $query->num_rows;
 			if ($linhas>0){
-				echo"<script>alert('Nome de usuário já cadastrado!');</script>";
-				header("Location:inicio.php");
-				die();
+				echo("<script type='text/javascript'> alert('Nome de usuário já cadastrado!'); location.href='cadastro.php';</script>");
 			}
 		}else{
 			$userUp = "";

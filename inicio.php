@@ -7,7 +7,7 @@
 	   $userUpdate = $_COOKIE[md5('usuariofpslavras')];
 	   $senhaUpdate = $_COOKIE[md5('senhafpslavras')];
   }else{
-    header("Location: index.php");
+    echo("<script type='text/javascript'> alert('Faça login'); location.href='index.php';</script>");
   }
 	$sql2 = mysqli_query($mysqli, "SELECT fornecedores.rasao, fornecedores.fantasia, fornecedores.cnpj, fornecedores.cgf, fornecedores.rua, fornecedores.numeroCasa,
 	fornecedores.complemento, fornecedores.bairro, fornecedores.telefone, fornecedores.uf, fornecedores.cidade, fornecedores.nomeBanco, fornecedores.agencia, fornecedores.contaCorrente,

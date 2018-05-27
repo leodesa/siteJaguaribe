@@ -27,7 +27,7 @@
 			   $userUpdate = $_COOKIE[md5('usuariofpslavras')];
 			   $senhaUpdate = $_COOKIE[md5('senhafpslavras')];
 			}else{
-				header("Location: index.php");
+				echo("<script type='text/javascript'> alert('Faça login'); location.href='index.php';</script>");;
 			}
 			if (isset($_COOKIE[md5('usuariofpslavras')]) and isset($_COOKIE[md5('senhafpslavras')])){
 				$usuarioCookie = $_COOKIE[md5('usuariofpslavras')];
@@ -37,7 +37,7 @@
 				$row = $query->num_rows;
 				if ($row>0){
 				}else{
-					header('Location: index.php');
+					echo("<script type='text/javascript'> alert('Faça login'); location.href='index.php';</script>");
 				}
 			}
 		}
@@ -46,11 +46,8 @@
 			include("conexao.php");
 			$sql1 = "INSERT INTO fornecedores VALUES(null, '$rasao','$fantasia','$cnpj','$cgf','$rua','$numeroCasa','$complemento','$bairro','$telefone','$uf','$cidade','$nomeBanco','$agencia','$contaCorrente')";
 			if($mysqli->query($sql1)){
-				echo "Salvo";
-				header('Location: cadastro.php');
 			}else{
-				echo "Houve um erro! tente novamente";
-				echo $mysqli->error;
+				echo("<script type='text/javascript'> alert('Houve um erro! tente novamente'); location.href='cadastro.php';</script>");
 			}
 			$sql2 = mysqli_query($mysqli, "SELECT * FROM fornecedores ORDER BY id DESC LIMIT 1");
 			while($valor = mysqli_fetch_array($sql2)){
@@ -58,21 +55,15 @@
 			}
 			$sql3 = "INSERT INTO login VALUES(null, '$usuario','$pass','1','$id')";
 			if($mysqli->query($sql3)){
-				echo "Salvo";
-				header('Location: cadastro.php');
 			}else{
-				echo "Houve um erro! tente novamente";
-				echo $mysqli->error;
+				echo("<script type='text/javascript'> alert('Houve um erro! tente novamente'); location.href='cadastro.php';</script>");
 			}
 				mkdir("/xampp/htdocs/siteJaguaribe/arquivos/".$rasao."-".$cnpj."/");
 				$pasta = $rasao."-".$cnpj;
 			$sql5 = "INSERT INTO pasta VALUES(null, '$pasta','$id')";
 			if($mysqli->query($sql5)){
-				echo "Salvo";
-				header('Location: cadastro.php');
 			}else{
-				echo "Houve um erro! tente novamente";
-				echo $mysqli->error;
+				echo("<script type='text/javascript'> alert('Houve um erro! tente novamente'); location.href='cadastro.php';</script>");
 			}
 			for($j = 0; $j < $qtdeSocios; $j++){
 				if($socio[$j]!=""){
@@ -84,11 +75,9 @@
 					$mailSocio = $socio[$j]->emailSocio;
 					$sql4 = "INSERT INTO socios VALUES(null, '$nomeSocio','$cpfSocio','$quantiSocio','$telSocio','$celSocio','$mailSocio','$id')";
 					if($mysqli->query($sql4)){
-						echo "Salvo";
-						header('Location: cadastro.php');
+						echo("<script type='text/javascript'> alert('Cadastrado com sucesso! Faça login'); location.href='index.php';</script>");
 					}else{
-						echo "Houve um erro! tente novamente";
-						echo $mysqli->error;
+						echo("<script type='text/javascript'> alert('Houve um erro! tente novamente'); location.href='cadastro.php';</script>");
 					}
 				}
 			}
@@ -102,36 +91,28 @@
 			include("conexao.php");
 			$sql1 = "UPDATE fornecedores SET rasao = '$rasao', fantasia = '$fantasia', cnpj = '$cnpj', cgf = '$cgf', rua = '$rua', numeroCasa = '$numeroCasa', complemento = '$complemento', bairro = '$bairro', telefone = '$telefone', uf = '$uf', cidade = '$cidade', nomeBanco = '$nomeBanco', agencia = '$agencia', contaCorrente = '$contaCorrente' WHERE id = '$idFornecedor'";
 			if($mysqli->query($sql1)){
-				echo "Atualizado";
 			}else{
-				echo "Houve um erro! tente novamente";
-				echo $mysqli->error;
+				echo("<script type='text/javascript'> alert('Houve um erro! tente novamente'); location.href='inicio.php';</script>");
 			}
 			$sql3 = "DELETE FROM socios WHERE vinculo='$idFornecedor'";
 			if($mysqli->query($sql3)){
-				echo "Deletado";
 			}else{
-				echo "Houve um erro! tente novamente";
-				echo $mysqli->error;
+				echo("<script type='text/javascript'> alert('Houve um erro! tente novamente'); location.href='inicio.php';</script>");
 			}
 			if($userUp!=""){
 				$sql2 = "UPDATE login SET usuario = '$userUp' WHERE vinculo = '$idFornecedor'";
 				if($mysqli->query($sql2)){
-					echo "Usuario Alterado";
 					setcookie(md5('usuariofpslavras'),$userUp);
 				}else{
-					echo "Houve um erro! tente novamente";
-					echo $mysqli->error;
+					echo("<script type='text/javascript'> alert('Houve um erro! tente novamente'); location.href='inicio.php';</script>");
 				}
 			}
 			if($senhaa!=""){
 				$sql5 = "UPDATE login SET senha = '$senhaa' WHERE vinculo = '$idFornecedor'";
 				if($mysqli->query($sql5)){
-					echo "Senha Alterada";
 					setcookie(md5('senhafpslavras'),$senhaa);
 				}else{
-					echo "Houve um erro! tente novamente";
-					echo $mysqli->error;
+					echo("<script type='text/javascript'> alert('Houve um erro! tente novamente'); location.href='inicio.php';</script>");
 				}
 			}
 			for($j = 0; $j < $qtdeSocios; $j++){
@@ -144,13 +125,12 @@
 					if(($nomeSocio!="") and ($cpfSocio!="") and ($quantiSocio!="") and ($telSocio!="") and ($celSocio!="") and ($mailSocio!="")){
 						$sql4 = "INSERT INTO socios VALUES(null, '$nomeSocio','$cpfSocio','$quantiSocio','$telSocio','$celSocio','$mailSocio','$idFornecedor')";
 						if($mysqli->query($sql4)){
+							echo("<script type='text/javascript'> alert('Atualizado com sucesso!'); location.href='inicio.php';</script>");
 						}else{
-							echo "Houve um erro! tente novamente";
-							echo $mysqli->error;
+							echo("<script type='text/javascript'> alert('Houve um erro! tente novamente'); location.href='inicio.php';</script>");
 						}
 					}
 			}
-			header('Location: inicio.php');
 		}
 	}
 ?>
