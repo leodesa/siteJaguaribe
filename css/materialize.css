@@ -2871,7 +2871,7 @@ ul.staggered-list li {
   }
 }
 
-@media only screen and (max-width: 992px) {
+@media only screen and (max-width: 600px) {
   .hide-on-med-and-down {
     display: none !important;
   }
@@ -4332,7 +4332,7 @@ nav .brand-logo {
   position: absolute;
   color: #fff;
   display: inline-block;
-  font-size: 2.1rem;
+  font-size: 2rem;
   padding: 0;
 }
 
@@ -4342,8 +4342,9 @@ nav .brand-logo.center {
           transform: translateX(-50%);
 }
 
-@media only screen and (max-width: 992px) {
+@media only screen and (max-width: 600px) {
   nav .brand-logo {
+	font-size: 1rem;
     left: 50%;
     -webkit-transform: translateX(-50%);
             transform: translateX(-50%);
@@ -4577,7 +4578,6 @@ small {
 .thin {
   font-weight: 200;
 }
-
 @media only screen and (min-width: 360px) {
   .flow-text {
     font-size: 1.2rem;

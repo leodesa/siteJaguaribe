@@ -51,6 +51,7 @@
 #titulo{
 	font-size: 200%;
 	color: #45916B;
+	margin-top: 10%;
 }
 .fabrica{
 	width: 10%;
@@ -71,17 +72,25 @@ v{
 	margin-left: 20%;
 	margin-bottom: 5%;
 }
-
+.sidenav-trigger{
+		display: none;
+	}
 
 @media only screen and (max-width: 890px) {
     #logo-container{
 		font-size: 150% !important;
     }
+	.sidenav-trigger{
+		display: none;
+	}
+	#titulo{
+		margin-top: 15%;
+	}
 }
 @media only screen and (max-width: 600px) {
-    #logo-container{
-    	font-size: 100% !important;
-    }
+    #logo, #logo-container{
+		display: none;
+	}
     .login{
     	width: 80%;
     }
@@ -93,11 +102,29 @@ v{
 	.container a{
 		font-size: 50px;
 	}
+	.sidenav-trigger{
+		display: block;
+	}
+	#titulo{
+		margin-top: 20%;
+	}
 }
 @media only screen and (max-width: 425px) {
     .login{
     	width: 90%;
     }
+	#logo, #logo-container{
+		display: none;
+	}
+	.sidenav-trigger{
+		display: block;
+	}
+	.navMenu{
+		position:fixed;top:0;left:0;z-index:99;
+	}
+	#titulo{
+		margin-top: 25%;
+	}
 }
 .closeSocios{
 	cursor: pointer;
