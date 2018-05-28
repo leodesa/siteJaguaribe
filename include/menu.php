@@ -54,7 +54,11 @@
 				<li><a href="administrativo.php">Inicio</a></li>
 				<li><a href="">Notificações <span class="new badge">
 				<?php
-					
+					$sql3 = mysqli_query($mysqli, "SELECT COUNT(sit) FROM fornecedores WHERE sit = '1'");
+						while($valor3 = mysqli_fetch_array($sql3)){
+							echo $valor3[0];
+							$notifications = $valor3[0];
+						}
 				?>
 				</span></a></li>
           		<li><a href="logout.php">Sair</a></li>
@@ -70,7 +74,9 @@
         <img src="img/logo.png">
     </div></li>
     <li><a href="administrativo.php">Inicio</a></li>
-	<li><a href="">Notificações <span class="new badge">0</span></a></li>
+	<li><a href="">Notificações <span class="new badge">
+		<?php echo $notifications; ?>
+	</span></a></li>
     <li><a href="logout.php">Sair</a></li>
   </ul>
 <?php
