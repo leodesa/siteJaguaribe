@@ -23,6 +23,8 @@ document.addEventListener('DOMContentLoaded', function() {
   $(document).ready(function(){
     $('.collapsible').collapsible();
   });
+  
+  
 function validar(){
 	var usuario = $("#usuarioCad").val();
 	var senha = $("#senha").val();

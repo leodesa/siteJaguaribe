@@ -13,7 +13,15 @@
 			if ($row>0){
 				setcookie(md5('usuariofpslavras'),$usuario);
 				setcookie(md5('senhafpslavras'),$pass);
-				header("Location: inicio.php");
+				$sql2 = mysqli_query($mysqli, "SELECT login.nivel FROM login WHERE usuario = '$usuario' AND senha = '$pass'");
+				while($valor = mysqli_fetch_array($sql2)){
+					$nivel = $valor[0];
+				}
+				if($nivel==1){
+					header('Location: inicio.php');
+				}else if($nivel==2){
+					header('Location: administrativo.php');
+				}
 			}else{
 				echo ("<script>
 					window.alert('Dados Incorretos!')
@@ -21,30 +29,37 @@
 				</script>");
 			}
 		}
-		public function verificarCookie(){
+		public function verificarNivel($nivelU){
 			include("conexao.php");
-			if (isset($_COOKIE[md5('usuariofpslavras')]) and isset($_COOKIE[md5('senhafpslavras')])){
-			   $userUpdate = $_COOKIE[md5('usuariofpslavras')];
-			   $senhaUpdate = $_COOKIE[md5('senhafpslavras')];
-			}else{
-				echo("<script type='text/javascript'> alert('Faça login'); location.href='index.php';</script>");;
-			}
 			if (isset($_COOKIE[md5('usuariofpslavras')]) and isset($_COOKIE[md5('senhafpslavras')])){
 				$usuarioCookie = $_COOKIE[md5('usuariofpslavras')];
 				$senhaCookie = $_COOKIE[md5('senhafpslavras')];
-				$sql = "SELECT * FROM login WHERE usuario='$usuarioCookie' AND senha='$senhaCookie'" or die("Erro ao selecionar");
-				$query = $mysqli->query($sql);
-				$row = $query->num_rows;
-				if ($row>0){
-				}else{
-					echo("<script type='text/javascript'> alert('Faça login'); location.href='index.php';</script>");
-				}
+			if($nivelU==1){
+					$sql = "SELECT * FROM login WHERE usuario='$usuarioCookie' AND senha='$senhaCookie' AND nivel= '1'" or die("Erro ao selecionar");
+					$query = $mysqli->query($sql);
+					$row = $query->num_rows;
+					if ($row>0){
+					}else{
+						echo "<script type='text/javascript'> alert('Acesso negado!'); location.href='logout.php';</script>";
+					}
 			}
+			if($nivelU==2){
+					$sql = "SELECT * FROM login WHERE usuario='$usuarioCookie' AND senha='$senhaCookie' AND nivel= '2'" or die("Erro ao selecionar");
+					$query = $mysqli->query($sql);
+					$row = $query->num_rows;
+					if ($row>0){
+					}else{
+						echo "<script type='text/javascript'> alert('Acesso negado!'); location.href='logout.php';</script>";
+					}
+				}
+			}else{
+						echo("<script type='text/javascript'> alert('Acesso negado!'); location.href='logout.php';</script>");
+					}
 		}
 		public function cadastarFornecedor($usuario,$pass,$rasao,$fantasia,$cnpj,$cgf,$rua,$numeroCasa,$complemento,$bairro,$telefone,$uf,$cidade,$nomeBanco,$agencia,$contaCorrente,$socio,$qtdeSocios){
 			
 			include("conexao.php");
-			$sql1 = "INSERT INTO fornecedores VALUES(null, '$rasao','$fantasia','$cnpj','$cgf','$rua','$numeroCasa','$complemento','$bairro','$telefone','$uf','$cidade','$nomeBanco','$agencia','$contaCorrente')";
+			$sql1 = "INSERT INTO fornecedores VALUES(null, '$rasao','$fantasia','$cnpj','$cgf','$rua','$numeroCasa','$complemento','$bairro','$telefone','$uf','$cidade','$nomeBanco','$agencia','$contaCorrente','1')";
 			if($mysqli->query($sql1)){
 			}else{
 				echo("<script type='text/javascript'> alert('Houve um erro! tente novamente'); location.href='cadastro.php';</script>");

@@ -1,14 +1,10 @@
 <?php
-	include('classes/CRUD.class.php');
 	include("conexao.php");
+	include('classes/CRUD.class.php');
 	$CRUD = new CRUD;
-	$CRUD->verificarCookie();
-  if (isset($_COOKIE[md5('usuariofpslavras')]) and isset($_COOKIE[md5('senhafpslavras')])){
-	   $userUpdate = $_COOKIE[md5('usuariofpslavras')];
-	   $senhaUpdate = $_COOKIE[md5('senhafpslavras')];
-  }else{
-    echo("<script type='text/javascript'> alert('Faça login'); location.href='index.php';</script>");
-  }
+	$CRUD->verificarNivel(1);
+	$userUpdate = $_COOKIE[md5('usuariofpslavras')];
+	$senhaUpdate = $_COOKIE[md5('senhafpslavras')];
 	$sql2 = mysqli_query($mysqli, "SELECT fornecedores.rasao, fornecedores.fantasia, fornecedores.cnpj, fornecedores.cgf, fornecedores.rua, fornecedores.numeroCasa,
 	fornecedores.complemento, fornecedores.bairro, fornecedores.telefone, fornecedores.uf, fornecedores.cidade, fornecedores.nomeBanco, fornecedores.agencia, fornecedores.contaCorrente,
 	fornecedores.id FROM fornecedores JOIN login WHERE login.usuario = '$userUpdate' AND login.senha = '$senhaUpdate' AND login.vinculo = fornecedores.id");
@@ -98,11 +94,11 @@
           <label for="passwordConf">Repetir Senha<v>*</v></label>
         </div>
       </div>
-      <h5 id="cabeca">Pessoa Juridíca<i class="material-icons left">people</i></h5>
+      <h5 id="cabeca">Pessoa Jurídica<i class="material-icons left">people</i></h5>
       <div class="row">
         <div class="input-field col s12">
           <input id="rasaoSocial" name="rasaoSocial" type="text" class="validate" value="<?php echo $rasao;?>" disabled required>
-          <label for="rasaoSocial">Rasão Social <v>*</v></label>
+          <label for="rasaoSocial">Razão Social <v>*</v></label>
         </div>
         <div class="input-field col s12">
           <input id="fantasia" name="fantasia" type="text" value="<?php echo $fantasia;?>" disabled class="validate">

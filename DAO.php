@@ -158,7 +158,7 @@
 				  // Não foi possível fazer o upload, provavelmente a pasta está incorreta
 				}
 				
-				$sql4 = "INSERT INTO arquivos VALUES(null, '$nome_final','$i','$emissao','$validade','$idPasta','1')";
+				$sql4 = "INSERT INTO arquivos VALUES(null, '$nome_final','$i','$emissao','$validade','$idPasta')";
 				if($mysqli->query($sql4)){
 					echo("<script type='text/javascript'> alert('Upload efetuado com sucesso!'); location.href='visualizarDoc.php';</script>");
 				}else{

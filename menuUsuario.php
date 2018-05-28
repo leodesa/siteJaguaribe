@@ -2,7 +2,7 @@
   include('classes/CRUD.class.php');
   include("conexao.php");
   $CRUD = new CRUD;
-  $CRUD->verificarCookie();
+  $CRUD->verificarNivel(1);
 ?>
 <!DOCTYPE html>
 <html lang="br">
@@ -45,11 +45,11 @@
       </div>
     </div>
     <div class="input-field">
-        <input type="date" class="validate" name="emissao1">
+        <input type="date" class="validate datepicker" name="emissao1">
         <label id="C2">Emissão</label>
     </div>
     <div class="input-field">
-        <input type="date" class="validate" name="validade1">
+        <input type="date" class="validate datepicker" name="validade1">
         <label id="C2">Validade</label>
     </div>
     <br>
@@ -64,11 +64,11 @@
       </div>
     </div>
     <div class="input-field">
-        <input type="date" class="validate" name="emissao2">
+        <input type="date" class="validate datepicker" name="emissao2">
         <label id="C2">Emissão</label>
     </div>
     <div class="input-field">
-        <input type="date" class="validate" name="validade2">
+        <input type="date" class="validate datepicker" name="validade2">
         <label id="C2">Validade</label>
     </div>
     <br>
@@ -83,11 +83,11 @@
       </div>
     </div>
     <div class="input-field">
-        <input type="date" class="validate" name="emissao3">
+        <input type="date" class="validate datepicker" name="emissao3">
         <label id="C2">Emissão</label>
     </div>
     <div class="input-field">
-        <input type="date" class="validate" name="validade3">
+        <input type="date" class="validate datepicker" name="validade3">
         <label id="C2">Validade</label>
     </div>
     <br>
@@ -102,11 +102,11 @@
       </div>
     </div>
     <div class="input-field">
-        <input type="date" class="validate" name="emissao4">
+        <input type="date" class="validate datepicker" name="emissao4">
         <label id="C2">Emissão</label>
     </div>
     <div class="input-field">
-        <input type="date" class="validate" name="validade4">
+        <input type="date" class="validate datepicker" name="validade4">
         <label id="C2">Validade</label>
     </div>
     <br>
@@ -121,11 +121,11 @@
       </div>
     </div>
     <div class="input-field">
-        <input type="date" class="validate" name="emissao5">
+        <input type="date" class="validate datepicker" name="emissao5">
         <label id="C2">Emissão</label>
     </div>
     <div class="input-field">
-        <input type="date" class="validate" name="validade5">
+        <input type="date" class="validate datepicker" name="validade5">
         <label id="C2">Validade</label>
     </div>
     <br>
@@ -140,11 +140,11 @@
       </div>
     </div>
     <div class="input-field">
-        <input type="date" class="validate" name="emissao6">
+        <input type="date" class="validate datepicker" name="emissao6">
         <label id="C2">Emissão</label>
     </div>
     <div class="input-field">
-        <input type="date" class="validate" name="validade6">
+        <input type="date" class="validate datepicker" name="validade6">
         <label id="C2">Validade</label>
     </div>
     <br>
@@ -159,11 +159,11 @@
       </div>
     </div>
     <div class="input-field">
-        <input type="date" class="validate" name="emissao7">
+        <input type="date" class="validate datepicker" name="emissao7">
         <label id="C2">Emissão</label>
     </div>
     <div class="input-field">
-        <input type="date" class="validate" name="validade7">
+        <input type="date" class="validate datepicker" name="validade7">
         <label id="C2">Validade</label>
     </div>
     <br>
@@ -178,11 +178,11 @@
       </div>
     </div>
     <div class="input-field">
-        <input type="date" class="validate" name="emissao8">
+        <input type="date" class="validate datepicker" name="emissao8">
         <label id="C2">Emissão</label>
     </div>
     <div class="input-field">
-        <input type="date" class="validate" name="validade8">
+        <input type="date" class="validate datepicker" name="validade8">
         <label id="C2">Validade</label>
     </div>
     <br>
@@ -197,11 +197,11 @@
       </div>
     </div>
     <div class="input-field">
-        <input type="date" class="validate" name="emissao9">
+        <input type="date" class="validate datepicker" name="emissao9">
         <label id="C2">Emissão</label>
     </div>
     <div class="input-field">
-        <input type="date" class="validate" name="validade9">
+        <input type="date" class="validate datepicker" name="validade9">
         <label id="C2">Validade</label>
     </div>
     <br>
@@ -216,11 +216,11 @@
       </div>
     </div>
     <div class="input-field">
-        <input type="date" class="validate" name="emissao10">
+        <input type="date" class="validate datepicker" name="emissao10">
         <label id="C2">Emissão</label>
     </div>
     <div class="input-field">
-        <input type="date" class="validate" name="validade10">
+        <input type="date" class="validate datepicker" name="validade10">
         <label id="C2">Validade</label>
     </div>
     <br>
@@ -236,11 +236,11 @@ optante do Simples Nacional, estão dispensadas)</label>
       </div>
     </div>
     <div class="input-field">
-        <input type="date" class="validate" name="emissao11">
+        <input type="date" class="validate datepicker" name="emissao11">
         <label id="C2">Emissão</label>
     </div>
     <div class="input-field">
-        <input type="date" class="validate" name="validade11">
+        <input type="date" class="validate datepicker" name="validade11">
         <label id="C2">Validade</label>
     </div>
         <br>
@@ -256,11 +256,11 @@ Engenharia)</label>
       </div>
     </div>
     <div class="input-field">
-        <input type="date" class="validate" name="emissao12">
+        <input type="date" class="validate datepicker" name="emissao12">
         <label id="C2">Emissão</label>
     </div>
     <div class="input-field">
-        <input type="date" class="validate" name="validade12">
+        <input type="date" class="validate datepicker" name="validade12">
         <label id="C2">Validade</label>
     </div>
     <button class="green right btn waves-effect waves-light block" type="button" onclick="document.getElementById('formFile').submit();" name="action">Enviar

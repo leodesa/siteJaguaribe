@@ -11,7 +11,7 @@
   <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link rel="icon" href="img/logo.png">
 </head>
-<body>
+<body onload="$('#usuario').select();">
   <nav class="green lighten-1" role="navigation">
     <div class="nav-wrapper container">
       <img id="logo" src="img/logo.png">
