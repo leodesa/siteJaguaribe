@@ -1,21 +1,6 @@
-$(".dropdown-trigger").dropdown();
 document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('.sidenav');
-    
-  });
-
-  // Initialize collapsible (uncomment the lines below if you use the dropdown variation)
-  // var collapsibleElem = document.querySelector('.collapsible');
-  // var collapsibleInstance = M.Collapsible.init(collapsibleElem, options);
-
-  // Or with jQuery
-
-  $(document).ready(function(){
-    $('.sidenav').sidenav();
-  });
-  
-   document.addEventListener('DOMContentLoaded', function() {
     var elems = document.querySelectorAll('.collapsible');
+    var instances = M.Collapsible.init(elems, options);
   });
 
   // Or with jQuery
@@ -24,7 +9,17 @@ document.addEventListener('DOMContentLoaded', function() {
     $('.collapsible').collapsible();
   });
   
-  
+   document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('select');
+    var instances = M.FormSelect.init(elems, options);
+  });
+
+  // Or with jQuery
+
+  $(document).ready(function(){
+    $('select').formSelect();
+  });
+  $(".dropdown-trigger").dropdown();
 function validar(){
 	var usuario = $("#usuarioCad").val();
 	var senha = $("#senha").val();
