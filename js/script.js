@@ -20,6 +20,42 @@ document.addEventListener('DOMContentLoaded', function() {
     $('select').formSelect();
   });
   $(".dropdown-trigger").dropdown();
+  
+   document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.sidenav');
+    var instances = M.Sidenav.init(elems, options);
+  });
+
+  // Initialize collapsible (uncomment the lines below if you use the dropdown variation)
+  // var collapsibleElem = document.querySelector('.collapsible');
+  // var collapsibleInstance = M.Collapsible.init(collapsibleElem, options);
+
+  // Or with jQuery
+
+  $(document).ready(function(){
+    $('.sidenav').sidenav();
+  });
+  
+  $(document).ready(function() {
+    $('#estados').on('change', function(){        
+        $.ajax({
+            url:'search.php',
+            type:'post',
+            data: {estados : $('#estados').val()},
+            success: function (data){
+				var $selectDropdown = 
+					  $("#cidades")
+						.empty()
+						.html(' ');
+				
+				$selectDropdown.append(data);
+				$selectDropdown.trigger('contentChanged');
+				$('select').formSelect();
+            }
+        });
+    });
+});
+
 function validar(){
 	var usuario = $("#usuarioCad").val();
 	var senha = $("#senha").val();
@@ -128,7 +164,10 @@ function validarCNPJ(cnpj) {
     
 }
 function editar(){
-	$("input.validate").attr("disabled", false);
+	$("input.validate").prop("disabled", false);
+	$("#estados").prop("disabled", false);
+	$("#cidades").prop("disabled", false);
+	$('select').formSelect();
 	$('#op').append("<div class='green left btn waves-effect waves-light center block' id='buttonMais' onclick='adicionarCampos()'>Adicionar<i class='add material-icons center'>add_circle</i></div>");
 	$('#cadastro').append("<button class='green right btn waves-effect waves-light block' type='button' name='action' onclick='atualizarCadastro()'>Atualizar<i class='material-icons right'>update</i></button>");
 	$('#editButton').remove();

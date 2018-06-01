@@ -146,6 +146,7 @@
 						}
 					}
 			}
+			echo("<script type='text/javascript'> alert('Atualizado com sucesso!'); location.href='inicio.php';</script>");
 		}
 	}
 ?>

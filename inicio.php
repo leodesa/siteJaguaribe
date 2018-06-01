@@ -132,13 +132,42 @@
           <input id="telefone" name="telefone" type="number" value="<?php echo $telefone;?>" disabled class="validate" required>
           <label for="telefone">Telefone <v>*</v></label>
         </div>
-        <div class="input-field col s7">
-          <input id="cidade" name="cidade"type="text" value="<?php echo $cidade;?>" disabled class="validate" required>
-          <label for="cidade">Cidade <v>*</v></label>
-        </div>
+       <div class="input-field col s7">
+			<select id="estados" name="uf" class='validate' disabled>
+				<option value="" disabled selected>Selecione o Estado</option>
+				<?php
+					$qryLista2 = mysqli_query($mysqli, "SELECT estados.cod_estados FROM estados JOIN fornecedores WHERE fornecedores.id = '$idFornecedor' AND fornecedores.uf = estados.cod_estados");    
+					while($ress2 = mysqli_fetch_array($qryLista2)){
+						$cod_estado_sel = $ress2[0];
+					}
+					$qryLista = mysqli_query($mysqli, "SELECT estados.nome, cod_estados FROM estados");    
+					while($ress = mysqli_fetch_array($qryLista)){
+						if($ress[1]==$cod_estado_sel){
+							echo "<option value='".$ress[1]."' selected>".$ress[0]."</option>";
+						}else{
+							echo "<option value='".$ress[1]."'>".$ress[0]."</option>";
+						}
+					}
+				?>
+			</select>
+		</div>
         <div class="input-field col s5">
-          <input id="uf" name="uf" type="text" class="validate" value="<?php echo $uf;?>" disabled required>
-          <label for="uf">UF <v>*</v></label>
+          <select id="cidades" name="cidade" class='selectsEC' disabled>
+				<?php
+					$qryLista3 = mysqli_query($mysqli, "SELECT cidades.cod_cidades FROM cidades JOIN fornecedores WHERE fornecedores.id = '$idFornecedor' AND fornecedores.cidade = cidades.cod_cidades");    
+					while($ress3 = mysqli_fetch_array($qryLista3)){
+						$cod_cidade_sel = $ress3[0];
+					}
+					$qryLista = mysqli_query($mysqli, "SELECT cidades.nome, cod_cidades FROM cidades WHERE estados_cod_estados='$cod_estado_sel'");    
+					while($ress = mysqli_fetch_array($qryLista)){
+						if($ress[1]==$cod_cidade_sel){
+							echo "<option value='".$ress[1]."' selected>".$ress[0]."</option>";
+						}else{
+							echo "<option value='".$ress[1]."'>".$ress[0]."</option>";
+						}
+					}
+				?>
+			</select>
         </div>
       </div>
       <h5 id="cabeca">Informações Bancárias<i class="material-icons left">attach_money

@@ -15,42 +15,59 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link rel="icon" href="img/logo.png">
+  <link rel="icon" href="img/logo.png">	
 </head>
 <body>
   <?php	include('include/menu.php'); ?>
 <h1 id="titulo" class="center">Últimos Cadastros de Fornecedores e Prestadores de Serviços</h1>
      <div id="documentos">
-		<div class="nav-wrapper">
-      <form>
-        <div class="input-field">
-          <input id="search" type="search" placeholder="Pesquisar fornecedores">
-          <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-          <i class="material-icons">close</i>
-        </div>
-      </form>
-	   
-	</div>
-	
+	 <form action="administrativo.php" method="POST">
 	<div class="row">
-		<div  class='col s1'>
-			<i class="material-icons">filter_list</i>
-		</div>
-		<div  class='col s4'>
-			<select>
+		<div class="col s4">
+			<select id="situacao">
 				<option value="" disabled selected>Situação</option>
-				<option value='1'>Em análise</option>
-				<option value='2'>Aprovado</option>
-				<option value='3'>Reprovado</option>
+				<option value="1">Em análise</option>
+				<option value="1">Aprovado</option>
+				<option value="1">Reprovado</option>
 			</select>
 		</div>
-		
-		<div  class='col s6'>
-			
+		<div class="col s4">
+			<select id="estados" name="estados">
+				<option value="" disabled selected>Selecione um estado</option>
+				<?php
+					$qryLista = mysqli_query($mysqli, "SELECT estados.nome, cod_estados FROM estados");    
+					while($ress = mysqli_fetch_array($qryLista)){
+						echo "<option value='".$ress[1]."'>".$ress[0]."</option>";
+					}
+				?>
+			</select>
+		</div>
+		<div class="col s4">
+			<select id="cidades">
+			</select>
+		</div>
+		<div class="col s8 nav-wrapper">
+			<div class="input-field">
+			  <input id="search" type="search" name='busca' placeholder="Pesquisar fornecedores">
+			  <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+			  <i class="material-icons">close</i>
+			</div>	   
+		</div>
+		<div class="input-field col s4">
+			<button class="btn waves-effect waves-light" type="submit" name="action">Filtrar
+				<i class="material-icons right">filter_list</i>
+			  </button>
 		</div>
 	</div>
-	
+	</form>
 		<?php
+		if(isset($_POST['busca']) and !empty($_POST['busca'])){
+			if(isset($_POST['situacao'])){$sit = $_POST['situacao'];}
+			if(isset($_POST['uf'])){$sit = $_POST['situacao'];}
+			
+			
+		}
+		else{
 		$sql2 = mysqli_query($mysqli, "SELECT fornecedores.rasao, fornecedores.fantasia, fornecedores.cnpj, fornecedores.telefone, fornecedores.cidade, fornecedores.uf, fornecedores.sit, fornecedores.id 
 		FROM fornecedores LIMIT 10");
 		echo "<ul class='collapsible'>";
@@ -81,6 +98,7 @@
 						</li>";
 			}
 			echo "</ul>";
+		}
 		?>
 	</div>
   
