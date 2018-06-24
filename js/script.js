@@ -48,6 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
 						.empty()
 						.html(' ');
 				
+				$selectDropdown.append("<option value='' disabled selected>Selecione uma cidade</option>");
 				$selectDropdown.append(data);
 				$selectDropdown.trigger('contentChanged');
 				$('select').formSelect();

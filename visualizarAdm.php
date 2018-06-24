@@ -2,28 +2,31 @@
 	include("conexao.php");
 	include('classes/CRUD.class.php');
 	$CRUD = new CRUD;
-	$CRUD->verificarNivel(1);
-	$userUpdate = $_COOKIE[md5('usuariofpslavras')];
-	$senhaUpdate = $_COOKIE[md5('senhafpslavras')];
-	$sql2 = mysqli_query($mysqli, "SELECT fornecedores.rasao, fornecedores.fantasia, fornecedores.cnpj, fornecedores.cgf, fornecedores.rua, fornecedores.numeroCasa,
-	fornecedores.complemento, fornecedores.bairro, fornecedores.telefone, fornecedores.uf, fornecedores.cidade, fornecedores.nomeBanco, fornecedores.agencia, fornecedores.contaCorrente,
-	fornecedores.id FROM fornecedores JOIN login WHERE login.usuario = '$userUpdate' AND login.senha = '$senhaUpdate' AND login.vinculo = fornecedores.id");
-	while($valor = mysqli_fetch_array($sql2)){
-		$rasao = $valor[0];
-		$fantasia = $valor[1];
-		$cnpj = $valor[2];
-		$cgf = $valor[3];
-		$rua = $valor[4];
-		$numeroCasa = $valor[5];
-		$complemento = $valor[6];
-		$bairro = $valor[7];
-		$telefone = $valor[8];
-		$uf = $valor[9];
-		$cidade = $valor[10];
-		$nomeBanco = $valor[11];
-		$agencia = $valor[12];
-		$contaCorrente = $valor[13];
-		$idFornecedor = $valor[14];
+	$CRUD->verificarNivel(2);
+	if(isset($_GET['idF'])){
+		$idF = $_GET['idF'];
+		$userUpdate = $_COOKIE[md5('usuariofpslavras')];
+		$senhaUpdate = $_COOKIE[md5('senhafpslavras')];
+		$sql2 = mysqli_query($mysqli, "SELECT fornecedores.rasao, fornecedores.fantasia, fornecedores.cnpj, fornecedores.cgf, fornecedores.rua, fornecedores.numeroCasa,
+		fornecedores.complemento, fornecedores.bairro, fornecedores.telefone, fornecedores.uf, fornecedores.cidade, fornecedores.nomeBanco, fornecedores.agencia, fornecedores.contaCorrente,
+		fornecedores.id FROM fornecedores JOIN login WHERE fornecedores.id = $idF");
+		while($valor = mysqli_fetch_array($sql2)){
+			$rasao = $valor[0];
+			$fantasia = $valor[1];
+			$cnpj = $valor[2];
+			$cgf = $valor[3];
+			$rua = $valor[4];
+			$numeroCasa = $valor[5];
+			$complemento = $valor[6];
+			$bairro = $valor[7];
+			$telefone = $valor[8];
+			$uf = $valor[9];
+			$cidade = $valor[10];
+			$nomeBanco = $valor[11];
+			$agencia = $valor[12];
+			$contaCorrente = $valor[13];
+			$idFornecedor = $valor[14];
+		}
 	}
 ?>
 <!DOCTYPE html>
@@ -37,102 +40,12 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link rel="icon" href="img/logo.png">
-  <script>
-	var socios = 1;
-	var max = 10
-	var controle = 0;
-	function adicionarCampos(){
-		if(socios!=max){
-			socios++;
-			if(socios>=2 && controle==0){
-				$('#op').append("<div class='green right btn waves-effect waves-light center block' id='closeSo' onclick='removeCampo(\"socioCp\")'>Remover<i class='material-icons right closeSocios' id='closeSo'>close</i></div>");
-				controle=1;
-			}
-			$('#campo').append("<div id='socioCp"+socios+"'><h6 id='cabeca' class='right'>Número "+socios+"<i class='material-icons right'>people</i></h6><div class='input-field col s12'><input id='nomeSocio"+socios+"' name='nomeSocio"+socios+"' type='text' class='validate'><label for='nomeSocio"+socios+"'>Nome</label></div><div class='input-field col s6'><input id='cpfSocio"+socios+"' name='cpfSocio"+socios+"' type='number' class='validate'><label for='cpfSocio"+socios+"'>CPF</label></div><div class='input-field col s6'><input id='quantificacaoSocio"+socios+"' name='quantificacaoSocio"+socios+"' type='text' class='validate'><label for='quantificacaoSocio"+socios+"'>Quantificação</label></div><div class='input-field col s6'><input id='telefoneSocios"+socios+"' name='telefoneSocios"+socios+"' type='number' class='validate'><label for='telefoneSocios"+socios+"'>Telefone</label></div><div class='input-field col s6'><input id='celularSocio"+socios+"' name='celularSocio"+socios+"'type='number' class='validate'><label for='celularSocio"+socios+"'>Celular</label></div><div class='input-field col s12'><input id='emailSocio' name='emailSocio"+socios+"' type='text' class='validate'><label for='emailSocio"+socios+"'>Email</label></div></div>");
-			$('#qtdeSocios').val(parseInt($('#qtdeSocios').val())+1);
-			if(socios==max){
-				$('#buttonMais').remove();
-			}
-		}
-	}
-	function removeCampo(div) {
-		$('#'+div+$('#qtdeSocios').val()).remove();
-		if(socios<=max){
-			$('#buttonMais').remove();
-			$('#op').append("<div class='green left btn waves-effect waves-light center block' id='buttonMais' onclick='adicionarCampos()'>Adicionar<i class='add material-icons center'>add_circle</i></div>");
-		}
-		socios--;
-		$('#qtdeSocios').val(parseInt($('#qtdeSocios').val())-1);
-		if(socios<2){
-			$('#closeSo').remove();
-			controle = 0;
-		}
-	}
-</script>
+  <link rel="icon" href="img/logo.png">	
 </head>
 <body>
-  <?php	include('include/menu.php'); 
-		$sql2 = mysqli_query($mysqli, "SELECT fornecedores.rasao, fornecedores.fantasia, fornecedores.cnpj, fornecedores.telefone, fornecedores.cidade, fornecedores.uf, fornecedores.sit, fornecedores.id 
-		FROM fornecedores LIMIT 10");
-		$row = $sql2->num_rows;
-		if($row>0){
-			while($valor = mysqli_fetch_array($sql2)){
-				//Aguardando análise
-				if($valor[6]==1){
-					$sit = "access_time";
-					$sit2 = "Em análise";
-				}else
-				//Aprovado
-				if($valor[6]==2){
-					$sit = "done";
-					$sit2 = "Aprovado na análise";
-				}else{
-					$sit = "close";
-					$sit2 = "Reprovado na análise";
-				}
-			}
-		}
-  ?>
+  <?php	include('include/menu.php'); ?>
 <h1 id="titulo" class="center">Dados de Cadastro Fornecedores e Prestadores de Serviços</h1>
     <div class="cadastro row">
-	 <table>
-        <thead>
-          <tr>
-              <th>Situação</th>
-              <th>Recomendações</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr>
-            <td><?php echo "<i class='tiny material-icons'>".$sit."</i> $sit2";?></td>
-            <td>Nenhum registro</td>
-          </tr>
-        </tbody>
-      </table>
-	  <br>
-	  <br>
-	  <br>
-    <form name="cadastro" id="cadastro" class="col s12" method="POST" action="DAO.php">
-      <h5 id="cabeca">Login<i class="material-icons left">person</i></h5>
-	  <input type="hidden" value="<?php echo $idFornecedor;?>" name="atualizar" />
-      <div class="row">
-        <div class="input-field col s12">
-          <input id="usuarioCad" name="usuarioCad" type="text" class="validate" required disabled>
-          <label for="usuarioCad">Usuário <v>*</v></label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s7">
-          <input id="senha" type="password" name="senha" class="validate" required disabled>
-          <label for="pass">Senha <v>*</v></label>
-        </div>
-        <div class="input-field col s5">
-          <input id="senhaConf" name="senhaConf"type="password" class="validate" required disabled>
-          <label for="passwordConf">Repetir Senha<v>*</v></label>
-        </div>
-      </div>
       <h5 id="cabeca">Pessoa Jurídica<i class="material-icons left">people</i></h5>
       <div class="row">
         <div class="input-field col s12">
@@ -248,11 +161,33 @@
 ?>
       </div>
 	  <div id="op">
-	  </div><br><br><br><br><br><br><br><br>
-      <button class="green right btn waves-effect waves-light block" type="button" name="action" id="editButton" onclick="editar()">Editar
-        <i class="material-icons right">edit</i>
-      </button>
-    </form>
+	  </div>
+
+		<?php
+		$sql2 = mysqli_query($mysqli, "SELECT arquivos.nomeArquivo, fornecedores.rasao, fornecedores.cnpj, arquivos.tipoArquivo , arquivos.emissao , arquivos.validade
+		FROM arquivos JOIN fornecedores WHERE arquivos.vinculo = '$idF' AND fornecedores.id = '$idF'");
+		$rows = $sql2->num_rows;
+		echo "<h1 id='titulo' class='center'>Documentos enviados</h1>";
+		if($rows>0){
+			
+			while($valor = mysqli_fetch_array($sql2)){
+				echo "<ul class='collection'>
+    <li class='collection-item avatar'>
+      <i class='small material-icons'>insert_drive_file</i>
+	  <span class='title'><b>".$valor[0]."</b></span>
+      <p>Tipo de arquivo: ".$CRUD->VerificarTipoArquivo($valor[3])."<br>
+         Data de emissão: ".date('d/m/Y',strtotime($valor[4]))."<br>
+         Data de validade: ".date('d/m/Y',strtotime($valor[5]))."<br>
+      </p><br>
+	  <a class='waves-effect waves-light btn' target='_blank' href='arquivos/".$valor[1]."-".$valor[2]."/".$valor[0]."'><i class='material-icons left'>visibility</i>Visualizar</a>
+    </li>
+  </ul>";
+			}
+		}else{
+			echo "<ul class='collection'>
+				<br><h6 class='center'>Nenhum registro encontrado</h6><br>
+			</ul>";
+		}?>
   </div>
   
 	<?php	include('include/rodape.php'); ?>
@@ -261,6 +196,8 @@
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="js/materialize.js"></script>
   <script src="js/script.js"></script>
-
+  <?php
+	echo"";
+	?>
   </body>
 </html>

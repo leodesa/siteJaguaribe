@@ -25,7 +25,7 @@
 	<div class="row">
 		<div class="col s4">
 			<select id="situacao" name='sit'>
-				<option value="" disabled selected>Situação</option>
+				<option disabled selected>Situação</option>
 				<option value="1">Em análise</option>
 				<option value="2">Aprovado</option>
 				<option value="3">Reprovado</option>
@@ -43,7 +43,8 @@
 			</select>
 		</div>
 		<div class="col s4">
-			<select id="cidades">
+			<select id="cidades" name="cidades">
+				<option value="" disabled selected>Selecione uma cidade</option>
 			</select>
 		</div>
 		<div class="col s8 nav-wrapper">
@@ -66,16 +67,26 @@
 			$busca = $_POST['busca'];
 			$sql = "SELECT fornecedores.rasao, fornecedores.fantasia, fornecedores.cnpj, fornecedores.telefone, fornecedores.cidade, fornecedores.uf, fornecedores.sit, fornecedores.id 
 			FROM fornecedores";
-			if(!empty($_POST['busca'])){
+			if(!empty($_POST['estados']) and isset($_POST['estados'])){
+				$uf = $_POST['estados'];
 				if($cont==1){
-					$sql .= " WHERE fornecedores.rasao like '%$busca%' OR fornecedores.fantasia like '%$busca%'";
+					$sql .= " WHERE fornecedores.uf = '$uf'";
 					$cont = 2;
 				}else{
-					$sql .= " fornecedores.rasao like '%$busca%' OR fornecedores.fantasia like '%$busca%'";
+					$sql .= "AND fornecedores.uf = '$uf'";
 				}
 			}
-			if(isset($_POST['situacao']) and !empty($_POST['situacao'])){
-				$sit = $_POST['situacao'];
+			if(!empty($_POST['cidades']) and isset($_POST['cidades'])){
+				$cidades = $_POST['cidades'];
+				if($cont==1){
+					$sql .= " WHERE fornecedores.cidade = '$cidades'";
+					$cont = 2;
+				}else{
+					$sql .= "AND fornecedores.cidade = '$cidades'";
+				}
+			}
+			if(isset($_POST['sit']) and !empty($_POST['sit'])){
+				$sit = $_POST['sit'];
 				if($cont==1){
 					$sql .= " WHERE fornecedores.sit = '$sit'";
 					$cont = 2;
@@ -84,9 +95,19 @@
 				}
 				$sql .= "";
 			}
+			if(!empty($_POST['busca']) and isset($_POST['busca'])){
+				if($cont==1){
+					$sql .= " WHERE (fornecedores.rasao like '%$busca%' OR fornecedores.fantasia like '%$busca%')";
+					$cont = 2;
+				}else{
+					$sql .= "AND (fornecedores.rasao like '%$busca%' OR fornecedores.fantasia like '%$busca%')";
+				}
+			}
 			///if(isset($_POST['estados']) and !empty($_POST['estados'])){$sit = $_POST['situacao'];}
 			$sql2 = mysqli_query($mysqli, $sql);
+			$row = $sql2->num_rows;
 		echo "<ul class='collapsible'>";
+		if($row>0){
 			while($valor = mysqli_fetch_array($sql2)){
 				//Aguardando análise
 				if($valor[6]==1){
@@ -101,24 +122,39 @@
 					$sit3 = "close";
 					$sit2 = "Reprovado na análise";
 				}
+				$sqlEstado = mysqli_query($mysqli, "SELECT estados.nome FROM estados WHERE estados.cod_estados = '$valor[5]'");
+				while($valor2 = mysqli_fetch_array($sqlEstado)){
+					$uff = $valor2[0];
+				}
+				$sqlCidade = mysqli_query($mysqli, "SELECT cidades.nome FROM cidades WHERE cidades.cod_cidades = '$valor[4]'");
+				while($valor3 = mysqli_fetch_array($sqlCidade)){
+					$cidadee = $valor3[0];
+				}
 				echo "<li>
 						  <div class='collapsible-header' style='outline:none;'><i class='material-icons'>folder_open</i>$valor[0]</div>
 						  <div class='collapsible-body'><span>
 							<b>CNPJ:</b> $valor[2]<br>
 							<b>Telefone:</b> $valor[3]<br>
-							<b>Cidade:</b> $valor[4]<br>
-							<b>UF:</b> $valor[5]<br>
+							<b>Cidade:</b> $cidadee<br>
+							<b>UF:</b> $uff<br>
 							<b>Situação:</b> <i class='tiny material-icons'>".$sit3."</i> $sit2<br><br><br>
-							<a class='waves-effect waves-light btn' onclick='visualizarFicha($valor[7])'><i class='material-icons left'>visibility</i>Visualizar</a>
+							<a class='waves-effect waves-light btn' target='_blank' href='visualizarAdm.php?idF=$valor[7]'><i class='material-icons left'>visibility</i>Visualizar</a>
 						  </span></div>
 						</li>";
 			}
-			echo "</ul>";
+			
+		}
+		else{
+			echo "<br><h6 class='center'>Nenhum registro encontrado</h6><br>";
+		}
+		echo "</ul>";
 		}
 		else{
 		$sql2 = mysqli_query($mysqli, "SELECT fornecedores.rasao, fornecedores.fantasia, fornecedores.cnpj, fornecedores.telefone, fornecedores.cidade, fornecedores.uf, fornecedores.sit, fornecedores.id 
 		FROM fornecedores LIMIT 10");
+		$row = $sql2->num_rows;
 		echo "<ul class='collapsible'>";
+		if($row>0){
 			while($valor = mysqli_fetch_array($sql2)){
 				//Aguardando análise
 				if($valor[6]==1){
@@ -133,18 +169,27 @@
 					$sit = "close";
 					$sit2 = "Reprovado na análise";
 				}
+				$sqlEstado = mysqli_query($mysqli, "SELECT estados.nome FROM estados WHERE estados.cod_estados = '$valor[5]'");
+				while($valor2 = mysqli_fetch_array($sqlEstado)){
+					$uff = $valor2[0];
+				}
+				$sqlCidade = mysqli_query($mysqli, "SELECT cidades.nome FROM cidades WHERE cidades.cod_cidades = '$valor[4]'");
+				while($valor3 = mysqli_fetch_array($sqlCidade)){
+					$cidadee = $valor3[0];
+				}
 				echo "<li>
 						  <div class='collapsible-header' style='outline:none;'><i class='material-icons'>folder_open</i>$valor[0]</div>
 						  <div class='collapsible-body'><span>
 							<b>CNPJ:</b> $valor[2]<br>
 							<b>Telefone:</b> $valor[3]<br>
-							<b>Cidade:</b> $valor[4]<br>
-							<b>UF:</b> $valor[5]<br>
+							<b>Cidade:</b> $cidadee<br>
+							<b>UF:</b> $uff<br>
 							<b>Situação:</b> <i class='tiny material-icons'>".$sit."</i> $sit2<br><br><br>
-							<a class='waves-effect waves-light btn' onclick='visualizarFicha($valor[7])'><i class='material-icons left'>visibility</i>Visualizar</a>
+							<a class='waves-effect waves-light btn' target='_blank' href='visualizarAdm.php?idF=$valor[7]'><i class='material-icons left'>visibility</i>Visualizar</a>
 						  </span></div>
 						</li>";
 			}
+		}else{echo"<br><h6 class='center'>Nenhum registro encontrado</h6><br>";}
 			echo "</ul>";
 		}
 		?>
