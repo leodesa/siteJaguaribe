@@ -45,21 +45,33 @@
 				$id = $valor[0];
 			}
 		$sql2 = mysqli_query($mysqli, "SELECT arquivos.nomeArquivo, fornecedores.rasao, fornecedores.cnpj, arquivos.tipoArquivo , arquivos.emissao , arquivos.validade
-		FROM arquivos JOIN fornecedores WHERE arquivos.vinculo = '$id' AND arquivos.vinculo = fornecedores.id");
+		FROM arquivos JOIN fornecedores WHERE arquivos.vinculo = '$id' AND arquivos.vinculo = fornecedores.id ORDER BY arquivos.id DESC");
+		$rows = $sql2->num_rows;
+		if($rows>0){
 			while($valor = mysqli_fetch_array($sql2)){
 				echo "<ul class='collection'>
     <li class='collection-item avatar'>
       <i class='small material-icons'>insert_drive_file</i>
 	  <span class='title'><b>".$valor[0]."</b></span>
-      <p>Tipo de arquivo: ".$CRUD->VerificarTipoArquivo($valor[3])."<br>
-         Data de emissão: ".date('d/m/Y',strtotime($valor[4]))."<br>
-         Data de validade: ".date('d/m/Y',strtotime($valor[5]))."<br>
-      </p><br>
+      <p>Tipo de arquivo: ".$CRUD->VerificarTipoArquivo($valor[3])."<br>";
+	  if(!empty($valor[4])){
+		echo "Data de emissão: ".date('d/m/Y',strtotime($valor[4]))."<br>";
+	  }if(!empty($valor[5])){
+         echo "Data de validade: ".date('d/m/Y',strtotime($valor[5]))."<br>";
+		 date_default_timezone_set('America/Fortaleza');
+         if(strtotime($valor[5]) < strtotime(date('Y/m/d'))){
+			echo"Situação: <i class='tiny material-icons'>access_time</i> Expirado<br>";
+	  }}
+      echo "</p><br>
 	  <a class='waves-effect waves-light btn' target='_blank' href='arquivos/".$valor[1]."-".$valor[2]."/".$valor[0]."'><i class='material-icons left'>visibility</i>Visualizar</a>
 	  <a class='waves-effect waves-light btn' onclick='if(confirm(\"Você realmente deseja excluir este arquivo?\")){excluirArquivo(\"arquivos/".$valor[1]."-".$valor[2]."/".$valor[0]."\",\"".$valor[0]."\");}'><i class='material-icons left'>delete</i>Deletar</a>
     </li>
   </ul>";
-			}
+		}}else{
+			echo "<ul class='collection'>
+				<br><br><h6 class='center'>Nenhum registro encontrado</h6><br><br>
+			</ul>";
+		}
 		?>
 	</div>
 	<form method="POST" action="visualizarDoc.php" id="formArquivos">
@@ -70,7 +82,7 @@
 
 
   <!--  Scripts-->
-  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="js/jquery-2.1.1.min.js"></script>
   <script src="js/materialize.js"></script>
   <script src="js/script.js"></script>
 

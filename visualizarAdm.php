@@ -27,6 +27,7 @@
 			$contaCorrente = $valor[13];
 			$idFornecedor = $valor[14];
 		}
+		echo "<input type='hidden' value='$idFornecedor' id='idF' />";
 	}
 ?>
 <!DOCTYPE html>
@@ -45,7 +46,46 @@
 <body>
   <?php	include('include/menu.php'); ?>
 <h1 id="titulo" class="center">Dados de Cadastro Fornecedores e Prestadores de Serviços</h1>
-    <div class="cadastro row">
+    <div class="cadastro row" id="cadastro">
+		
+	  <div id="modal1" class="modal">
+		<div class="modal-content" id="modal">
+			<div id="campoAddAdm"></div>
+		</div>
+		<div class="modal-footer">
+		  <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
+		  <button data-target="modal1" class="waves-effect waves-green btn-flat">Confirmar</button>
+		</div>
+	  </div>
+	  
+	  <div id="modal1" class="modal">
+		<div class="modal-content" id="modal3">
+			<div id="campoAddAdm2"></div>
+		</div>
+		<div class="modal-footer">
+		  <button data-target="modal1" class="modal-close waves-effect waves-green btn-flat">Fechar</button>
+		</div>
+	  </div>
+	  <?php
+		$query3 = mysqli_query($mysqli, "SELECT * FROM recomendacoes WHERE recomendacoes.vinculo='$idFornecedor'");    
+		$rows3 = $query3->num_rows;
+		if($rows3>0){
+			echo"<button data-target='modal1' class='modal-trigger waves-effect waves-red btn-flat' id='historico' onclick='historico();'>Histórico de recomendações<i class='material-icons right'>history</i></button><br><br><br>";
+		}
+		$query4 = mysqli_query($mysqli, "SELECT fornecedores.sit FROM fornecedores WHERE fornecedores.id='$idFornecedor'");
+		while($res4 = mysqli_fetch_array($query4)){
+			$situacao = $res4[0];
+		}
+		if($situacao==1){
+			echo "<button data-target='modal1' class='modal-trigger waves-effect waves-green btn-flat right' onclick='aprovarCad();' id='aprovarCad'>Aprovar<i class='material-icons right'>done</i></button>";
+			echo"<button data-target='modal1' class='modal-trigger waves-effect waves-red btn-flat' id='reprovarCad' onclick='reprovarCad();'>Reprovar<i class='material-icons right'>close</i></button><br><br><br>";
+		}else if($situacao==3){
+			echo "<button data-target='modal1' class='modal-trigger waves-effect waves-green btn-flat right' onclick='aprovarCad();' id='aprovarCad'>Aprovar<i class='material-icons right'>done</i></button>";
+		}else if($situacao==2){
+			echo"<button data-target='modal1' class='modal-trigger waves-effect waves-red btn-flat' id='reprovarCad' onclick='reprovarCad();'>Reprovar<i class='material-icons right'>close</i></button><br><br><br>";
+		}
+	  ?>
+	  
       <h5 id="cabeca">Pessoa Jurídica<i class="material-icons left">people</i></h5>
       <div class="row">
         <div class="input-field col s12">
@@ -138,16 +178,16 @@
           <label for="contaCorrente">Conta Corrente</label>
         </div>
       </div>
+      <?php
+	  $sql22 = mysqli_query($mysqli, "SELECT socios.nomeSocio, socios.cpfSocio, socios.quantificacaoSocio, socios.telefoneSocio, socios.celularSocio, socios.emailSocio FROM socios JOIN login JOIN fornecedores WHERE fornecedores.id = '$idF' AND login.vinculo='$idF' AND socios.vinculo = '$idF'");
+		$row = $sql22->num_rows;
+		$socios = 1;
+	
+	echo "<div class='row' id='campo'>";
+	if($row>0){
+	  ?>
       <h5 id="cabeca">Sócios, Diretores ou Representantes<i class="material-icons left">assignment_ind</i></h5>
-      <div class="row" id="campo">
-		<?php
-	$sql22 = mysqli_query($mysqli, "SELECT socios.nomeSocio, socios.cpfSocio, socios.quantificacaoSocio, socios.telefoneSocio, socios.celularSocio, socios.emailSocio FROM socios JOIN login JOIN fornecedores WHERE login.usuario = '$userUpdate' AND login.senha = '$senhaUpdate' AND login.vinculo = fornecedores.id AND socios.vinculo = fornecedores.id");
-	$socios = 1;
-	$sql = "SELECT socios.nomeSocio, socios.cpfSocio, socios.quantificacaoSocio, socios.telefoneSocio, socios.celularSocio, socios.emailSocio FROM socios JOIN login JOIN fornecedores WHERE login.usuario = '$userUpdate' AND login.senha = '$senhaUpdate' AND login.vinculo = fornecedores.id AND socios.vinculo = fornecedores.id" or die("Erro ao selecionar");
-	$query = $mysqli->query($sql);
-	$row = $query->num_rows;
-	echo "<input type='hidden' value='$row' id='qtdeSocios' name='qtdeSocios' /><script>socios=$row;</script>";
-	$socios = 1;
+	<?php
 	while($valor2 = mysqli_fetch_array($sql22)){
 		$nomeSocio = $valor2[0];
 		$cpfSocio = $valor2[1];
@@ -155,9 +195,9 @@
 		$telefoneSocio = $valor2[3];
 		$celularSocio = $valor2[4];
 		$emailSocio = $valor2[5];
-		echo "<div id='socioCp".$socios."'><h6 id='cabeca' class='right'>Número ".$socios."<i class='material-icons right'>people</i></h6><div class='input-field col s12'><input id='nomeSocio".$socios."' name='nomeSocio".$socios."' type='text' value='$nomeSocio' class='validate' disabled><label for='nomeSocio".$socios."'>Nome</label></div><div class='input-field col s6'><input id='cpfSocio".$socios."' name='cpfSocio".$socios."' type='number' value='$cpfSocio' class='validate' disabled><label for='cpfSocio".$socios."'>CPF</label></div><div class='input-field col s6'><input id='quantificacaoSocio".$socios."' value='$quantificacaoSocio' name='quantificacaoSocio".$socios."' type='text' class='validate' disabled><label for='quantificacaoSocio".$socios."'>Quantificação</label></div><div class='input-field col s6'><input id='telefoneSocios".$socios."' name='telefoneSocios".$socios."' value='$telefoneSocio' type='number' class='validate' disabled><label for='telefoneSocios".$socios."'>Telefone</label></div><div class='input-field col s6'><input id='celularSocio".$socios."' name='celularSocio".$socios."' type='number' value='$celularSocio' class='validate' disabled><label for='celularSocio".$socios."'>Celular</label></div><div class='input-field col s12'><input id='emailSocio' name='emailSocio".$socios."' type='text' value='$emailSocio' class='validate' disabled><label for='emailSocio".$socios."'>Email</label></div></div>";
+		echo "<div id='socioCp".$socios."'><h6 id='cabeca' class='right'>Número ".$socios."<i class='material-icons right'>people</i></h6><div class='input-field col s12'><input id='nomeSocio".$socios."' name='nomeSocio".$socios."' type='text' value='$nomeSocio' class='validate' disabled><label for='nomeSocio".$socios."'>Nome</label></div><div class='input-field col s6'><input id='cpfSocio".$socios."' name='cpfSocio".$socios."' type='text' value='$cpfSocio' class='validate cpf' disabled><label for='cpfSocio".$socios."'>CPF</label></div><div class='input-field col s6'><input id='quantificacaoSocio".$socios."' value='$quantificacaoSocio' name='quantificacaoSocio".$socios."' type='text' class='validate' disabled><label for='quantificacaoSocio".$socios."'>Quantificação</label></div><div class='input-field col s6'><input id='telefoneSocios".$socios."' name='telefoneSocios".$socios."' value='$telefoneSocio' type='text' class='validate tel' disabled><label for='telefoneSocios".$socios."'>Telefone</label></div><div class='input-field col s6'><input id='celularSocio".$socios."' name='celularSocio".$socios."' type='text' value='$celularSocio' class='validate tel' disabled><label for='celularSocio".$socios."'>Celular</label></div><div class='input-field col s12'><input id='emailSocio' name='emailSocio".$socios."' type='text' value='$emailSocio' class='validate' disabled><label for='emailSocio".$socios."'>Email</label></div></div>";
 		$socios++;
-	}
+	}}
 ?>
       </div>
 	  <div id="op">
@@ -165,7 +205,7 @@
 
 		<?php
 		$sql2 = mysqli_query($mysqli, "SELECT arquivos.nomeArquivo, fornecedores.rasao, fornecedores.cnpj, arquivos.tipoArquivo , arquivos.emissao , arquivos.validade
-		FROM arquivos JOIN fornecedores WHERE arquivos.vinculo = '$idF' AND fornecedores.id = '$idF'");
+		FROM arquivos JOIN fornecedores WHERE arquivos.vinculo = '$idF' AND fornecedores.id = '$idF' ORDER BY arquivos.id DESC");
 		$rows = $sql2->num_rows;
 		echo "<h1 id='titulo' class='center'>Documentos enviados</h1>";
 		if($rows>0){
@@ -175,10 +215,16 @@
     <li class='collection-item avatar'>
       <i class='small material-icons'>insert_drive_file</i>
 	  <span class='title'><b>".$valor[0]."</b></span>
-      <p>Tipo de arquivo: ".$CRUD->VerificarTipoArquivo($valor[3])."<br>
-         Data de emissão: ".date('d/m/Y',strtotime($valor[4]))."<br>
-         Data de validade: ".date('d/m/Y',strtotime($valor[5]))."<br>
-      </p><br>
+      <p>Tipo de arquivo: ".$CRUD->VerificarTipoArquivo($valor[3])."<br>";
+        if(!empty($valor[4])){
+		echo "Data de emissão: ".date('d/m/Y',strtotime($valor[4]))."<br>";
+	  }if(!empty($valor[5])){
+         echo "Data de validade: ".date('d/m/Y',strtotime($valor[5]))."<br>";
+		 date_default_timezone_set('America/Fortaleza');
+         if(strtotime($valor[5]) < strtotime(date('Y/m/d'))){
+			echo"Situação: <i class='tiny material-icons'>access_time</i> Expirado<br>";
+	  }}
+      echo "</p><br>
 	  <a class='waves-effect waves-light btn' target='_blank' href='arquivos/".$valor[1]."-".$valor[2]."/".$valor[0]."'><i class='material-icons left'>visibility</i>Visualizar</a>
     </li>
   </ul>";
@@ -193,7 +239,7 @@
 	<?php	include('include/rodape.php'); ?>
 
   <!--  Scripts-->
-  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="js/jquery-2.1.1.min.js"></script>
   <script src="js/materialize.js"></script>
   <script src="js/script.js"></script>
   <?php

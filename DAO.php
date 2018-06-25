@@ -15,10 +15,21 @@
 		$linhas = $query->num_rows;
 		if ($linhas>0){
 			echo("<script type='text/javascript'> alert('Nome de usuário já cadastrado!'); location.href='cadastro.php';</script>");
+			return false;
+		}
+		$cnpj = $_POST['cnpj'];
+		$chars = array(".","/","-");
+		$cnpj2 = str_replace($chars,"",$cnpj);
+		$sql33 = "SELECT * FROM fornecedores WHERE cnpj = '$cnpj2' limit 1" or die("erro ao selecionar");
+        $query33 = $mysqli->query($sql33);
+		$linhas33 = $query33->num_rows;
+		if ($linhas33>0){
+			echo("<script type='text/javascript'> alert('CNPJ já cadastrado!'); location.href='cadastro.php';</script>");
+			return false;
 		}
 		$rasao = $_POST['rasaoSocial'];
 		$fantasia = $_POST['fantasia'];
-		$cnpj = $_POST['cnpj'];
+		
 		$cgf = $_POST['cgf'];
 		$rua = $_POST['rua'];
 		$numeroCasa = $_POST['numeroCasa'];
@@ -62,15 +73,33 @@
 			$linhas = $query->num_rows;
 			if ($linhas>0){
 				echo("<script type='text/javascript'> alert('Nome de usuário já cadastrado!'); location.href='cadastro.php';</script>");
+				return false;
 			}
+			
 		}else{
 			$userUp = "";
 			$senhaa = "";
 		}
 		$id = $_POST['atualizar'];
+		$cnpj = $_POST['cnpj'];
+		$chars = array(".","/","-");
+		$cnpj2 = str_replace($chars,"",$cnpj);
+		$sql44 = "SELECT * FROM fornecedores WHERE cnpj = '$cnpj2' AND id='$id'" or die("erro ao selecionar");
+		$query44 = $mysqli->query($sql44);
+		$linhas44 = $query44->num_rows;
+		if ($linhas44>0){
+			
+		}else{
+		$sql33 = "SELECT * FROM fornecedores WHERE cnpj = '$cnpj2' limit 1" or die("erro ao selecionar");
+		$query33 = $mysqli->query($sql33);
+		$linhas33 = $query33->num_rows;
+		if ($linhas33>0){
+			echo("<script type='text/javascript'> alert('CNPJ já cadastrado!'); location.href='inicio.php';</script>");
+			return false;
+		}}
+		
 		$rasao = $_POST['rasaoSocial'];
 		$fantasia = $_POST['fantasia'];
-		$cnpj = $_POST['cnpj'];
 		$cgf = $_POST['cgf'];
 		$rua = $_POST['rua'];
 		$numeroCasa = $_POST['numeroCasa'];
@@ -102,6 +131,23 @@
 		$CRUD = new CRUD;
 		$CRUD->atualizarFornecedor($userUp,$senhaa,$rasao,$fantasia,$cnpj,$cgf,$rua,$numeroCasa,$complemento,$bairro,$telefone,$uf,$cidade,$nomeBanco,$agencia,$contaCorrente,$socio,$qtdeSocios,$id);
 	}
+	if(isset($_POST['msg'])){
+		include("conexao.php");
+		$msg = $_POST['msg'];
+		$idf = $_POST['idf'];
+		date_default_timezone_set('America/Fortaleza');
+		$data = date('Y-m-d H:i');
+		$sql = "INSERT INTO recomendacoes VALUES(null,'$msg','$data','$idf')";
+		$mysqli->query($sql);
+		$sql3 = "UPDATE fornecedores SET sit='3' WHERE fornecedores.id='$idf'";
+		$mysqli->query($sql3);
+	}
+	if(isset($_POST['idAprovado'])){
+		include("conexao.php");
+		$idf = $_POST['idAprovado'];
+		$sql = "UPDATE fornecedores SET sit='2' WHERE fornecedores.id='$idf'";
+		$mysqli->query($sql);
+	}
 	if(isset($_POST['idPasta'])){
 		include("conexao.php");
 		$idPasta = $_POST['idPasta'];
@@ -114,8 +160,15 @@
 		for ($i=1; $i<13; $i++){
 			if(is_uploaded_file($_FILES['arquivo'.$i]['tmp_name'])){
 				$arquivo = $_FILES['arquivo'.$i];
-				$emissao = $_POST['emissao'.$i];
-				$validade = $_POST['validade'.$i];
+				if(!empty($_POST['emissao'.$i])){
+					$emissao = $_POST['emissao'.$i];
+				}else{
+					$emissao = null;
+				}if(!empty($_POST['validade'.$i])){
+					$validade = $_POST['validade'.$i];
+				}else{
+					$validade = null;
+				}
 				// Tamanho máximo do arquivo (em Bytes)
 				$_UP['tamanho'] = 1024 * 1024 * 2; // 2Mb
 				// Array com as extensões permitidas
@@ -157,8 +210,18 @@
 				} else {
 				  // Não foi possível fazer o upload, provavelmente a pasta está incorreta
 				}
-				
+				if($emissao!=null and $validade!=null){
 				$sql4 = "INSERT INTO arquivos VALUES(null, '$nome_final','$i','$emissao','$validade','$idPasta')";
+				}
+				if($emissao==null and $validade!=null){
+					$sql4 = "INSERT INTO arquivos VALUES(null, '$nome_final','$i',null,'$validade','$idPasta')";
+				}
+				if($validade==null and $emissao!=null){
+					$sql4 = "INSERT INTO arquivos VALUES(null, '$nome_final','$i','$emissao',null,'$idPasta')";
+				}
+				if($emissao==null and $validade==null){
+				$sql4 = "INSERT INTO arquivos VALUES(null, '$nome_final','$i',null,null,'$idPasta')";
+				}
 				if($mysqli->query($sql4)){
 					echo("<script type='text/javascript'> alert('Upload efetuado com sucesso!'); location.href='visualizarDoc.php';</script>");
 				}else{
@@ -166,5 +229,7 @@
 				}
 			}
 		}
+		$sql5 = "UPDATE fornecedores SET sit='1' WHERE id='$idPasta'";
+		$mysqli->query($sql5);
 	}
 ?>

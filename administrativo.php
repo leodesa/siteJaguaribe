@@ -103,6 +103,7 @@
 					$sql .= "AND (fornecedores.rasao like '%$busca%' OR fornecedores.fantasia like '%$busca%')";
 				}
 			}
+			$sql .= " LIMIT 10";
 			///if(isset($_POST['estados']) and !empty($_POST['estados'])){$sit = $_POST['situacao'];}
 			$sql2 = mysqli_query($mysqli, $sql);
 			$row = $sql2->num_rows;
@@ -177,10 +178,11 @@
 				while($valor3 = mysqli_fetch_array($sqlCidade)){
 					$cidadee = $valor3[0];
 				}
+				$str = preg_replace("/([0-9]{2})([0-9]{3})([0-9]{3})([0-9]{4})([0-9]{2})/", "$1.$2.$3/$4-$5", $valor[2]);
 				echo "<li>
 						  <div class='collapsible-header' style='outline:none;'><i class='material-icons'>folder_open</i>$valor[0]</div>
 						  <div class='collapsible-body'><span>
-							<b>CNPJ:</b> $valor[2]<br>
+							<b>CNPJ:</b> $str<br>
 							<b>Telefone:</b> $valor[3]<br>
 							<b>Cidade:</b> $cidadee<br>
 							<b>UF:</b> $uff<br>
@@ -198,7 +200,7 @@
 	<?php	include('include/rodape.php'); ?>
 
   <!--  Scripts-->
-  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="js/jquery-2.1.1.min.js"></script>
   <script src="js/materialize.js"></script>
   <script src="js/script.js"></script>
   </body>

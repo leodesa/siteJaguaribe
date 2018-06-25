@@ -39,18 +39,20 @@
   <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link rel="icon" href="img/logo.png">
   <script>
-	var socios = 1;
+	var socios = 0;
 	var max = 10
 	var controle = 0;
 	function adicionarCampos(){
+		if(socios==0){$('#campo').append("<h5 id='cabeca'>Sócios, Diretores ou Representantes<i class='material-icons left'>assignment_ind</i></h5>");}
 		if(socios!=max){
 			socios++;
 			if(socios>=2 && controle==0){
 				$('#op').append("<div class='green right btn waves-effect waves-light center block' id='closeSo' onclick='removeCampo(\"socioCp\")'>Remover<i class='material-icons right closeSocios' id='closeSo'>close</i></div>");
 				controle=1;
 			}
-			$('#campo').append("<div id='socioCp"+socios+"'><h6 id='cabeca' class='right'>Número "+socios+"<i class='material-icons right'>people</i></h6><div class='input-field col s12'><input id='nomeSocio"+socios+"' name='nomeSocio"+socios+"' type='text' class='validate'><label for='nomeSocio"+socios+"'>Nome</label></div><div class='input-field col s6'><input id='cpfSocio"+socios+"' name='cpfSocio"+socios+"' type='number' class='validate'><label for='cpfSocio"+socios+"'>CPF</label></div><div class='input-field col s6'><input id='quantificacaoSocio"+socios+"' name='quantificacaoSocio"+socios+"' type='text' class='validate'><label for='quantificacaoSocio"+socios+"'>Quantificação</label></div><div class='input-field col s6'><input id='telefoneSocios"+socios+"' name='telefoneSocios"+socios+"' type='number' class='validate'><label for='telefoneSocios"+socios+"'>Telefone</label></div><div class='input-field col s6'><input id='celularSocio"+socios+"' name='celularSocio"+socios+"'type='number' class='validate'><label for='celularSocio"+socios+"'>Celular</label></div><div class='input-field col s12'><input id='emailSocio' name='emailSocio"+socios+"' type='text' class='validate'><label for='emailSocio"+socios+"'>Email</label></div></div>");
+			$('#campo').append("<div id='socioCp"+socios+"'><h6 id='cabeca' class='right'>Número "+socios+"<i class='material-icons right'>people</i></h6><div class='input-field col s12'><input id='nomeSocio"+socios+"' name='nomeSocio"+socios+"' type='text' class='validate'><label for='nomeSocio"+socios+"'>Nome</label></div><div class='input-field col s6'><input id='cpfSocio"+socios+"' name='cpfSocio"+socios+"' type='text' class='validate cpf'><label for='cpfSocio"+socios+"'>CPF</label></div><div class='input-field col s6'><input id='quantificacaoSocio"+socios+"' name='quantificacaoSocio"+socios+"' type='text' class='validate'><label for='quantificacaoSocio"+socios+"'>Quantificação</label></div><div class='input-field col s6'><input id='telefoneSocios"+socios+"' name='telefoneSocios"+socios+"' type='text' class='validate tel'><label for='telefoneSocios"+socios+"'>Telefone</label></div><div class='input-field col s6'><input id='celularSocio"+socios+"' name='celularSocio"+socios+"'type='text' class='validate tel'><label for='celularSocio"+socios+"'>Celular</label></div><div class='input-field col s12'><input id='emailSocio' name='emailSocio"+socios+"' type='text' class='validate'><label for='emailSocio"+socios+"'>Email</label></div></div>");
 			$('#qtdeSocios').val(parseInt($('#qtdeSocios').val())+1);
+			$('.cpf').trigger('contentChanged');
 			if(socios==max){
 				$('#buttonMais').remove();
 			}
@@ -74,7 +76,7 @@
 <body>
   <?php	include('include/menu.php'); 
 		$sql2 = mysqli_query($mysqli, "SELECT fornecedores.rasao, fornecedores.fantasia, fornecedores.cnpj, fornecedores.telefone, fornecedores.cidade, fornecedores.uf, fornecedores.sit, fornecedores.id 
-		FROM fornecedores LIMIT 10");
+		FROM fornecedores WHERE fornecedores.id = '$idFornecedor'");
 		$row = $sql2->num_rows;
 		if($row>0){
 			while($valor = mysqli_fetch_array($sql2)){
@@ -93,9 +95,32 @@
 				}
 			}
 		}
+		$sql3 = mysqli_query($mysqli, "SELECT arquivos.id FROM arquivos WHERE arquivos.vinculo='$idFornecedor'");
+		$row2 = $sql3->num_rows;
+		if($row2<=0){
+			$msgT = "Insira arquivos para análise";
+		}else{
+			$sql4 = mysqli_query($mysqli, "SELECT recomendacoes.msg FROM recomendacoes WHERE recomendacoes.vinculo='$idFornecedor' ORDER BY recomendacoes.data DESC LIMIT 1");
+			$row4 = $sql4->num_rows;
+			if($row4<=0){
+				$msgT = "Nenhuma recomendação";
+			}else{
+				while($valor4 = mysqli_fetch_array($sql4)){
+					$msgT = $valor4[0];
+				}
+			}
+		}
   ?>
 <h1 id="titulo" class="center">Dados de Cadastro Fornecedores e Prestadores de Serviços</h1>
     <div class="cadastro row">
+	<div id="modal1" class="modal">
+		<div class="modal-content" id="modal">
+			<div id="campoAddAdm"></div>
+		</div>
+		<div class="modal-footer">
+		  <button data-target="modal1" class="modal-close waves-effect waves-green btn-flat">Fechar</button>
+		</div>
+	  </div>
 	 <table>
         <thead>
           <tr>
@@ -107,16 +132,25 @@
         <tbody>
           <tr>
             <td><?php echo "<i class='tiny material-icons'>".$sit."</i> $sit2";?></td>
-            <td>Nenhum registro</td>
+            <td><?php echo $msgT;?></td>
           </tr>
         </tbody>
       </table>
+	  <?php
+		$sql43 = mysqli_query($mysqli, "SELECT recomendacoes.msg FROM recomendacoes WHERE recomendacoes.vinculo='$idFornecedor'");
+		$row43 = $sql43->num_rows;
+		if($row43>0){
+	  ?>
+	  <button data-target="modal1" class="modal-trigger waves-effect waves-red btn-flat right" id='historico' onclick="historico();">Histórico de recomendações<i class='material-icons right'>history</i></button><br><br><br>
+	  <?php
+		}
+	  ?>
 	  <br>
 	  <br>
 	  <br>
     <form name="cadastro" id="cadastro" class="col s12" method="POST" action="DAO.php">
       <h5 id="cabeca">Login<i class="material-icons left">person</i></h5>
-	  <input type="hidden" value="<?php echo $idFornecedor;?>" name="atualizar" />
+	  <input type="hidden" id="idF" value="<?php echo $idFornecedor;?>" name="atualizar" />
       <div class="row">
         <div class="input-field col s12">
           <input id="usuarioCad" name="usuarioCad" type="text" class="validate" required disabled>
@@ -144,7 +178,7 @@
           <label for="fantasia">Nome de Fantasia</label>
         </div>
         <div class="input-field col s7">
-          <input id="cnpj" name="cnpj" type="number" class="validate" value="<?php echo $cnpj;?>" disabled required>
+          <input id="cnpj" name="cnpj" type="text" class="validate cnpj" value="<?php $str = preg_replace("/([0-9]{2})([0-9]{3})([0-9]{3})([0-9]{4})([0-9]{2})/", "$1.$2.$3/$4-$5", $cnpj);echo $str;?>" disabled required>
           <label for="cnpj">CNPJ.n° <v>*</v></label>
         </div>
         <div class="input-field col s5">
@@ -168,11 +202,11 @@
           <label for="bairro">Bairro <v>*</v></label>
         </div>
         <div class="input-field col s5">
-          <input id="telefone" name="telefone" type="number" value="<?php echo $telefone;?>" disabled class="validate" required>
+          <input id="telefone" name="telefone" type="text" value="<?php echo $telefone;?>" disabled class="validate tel" required>
           <label for="telefone">Telefone <v>*</v></label>
         </div>
        <div class="input-field col s7">
-			<select id="estados" name="uf" class='validate' disabled>
+			<select id="estados" name="uf" class='validate' disabled required>
 				<option value="" disabled selected>Selecione o Estado</option>
 				<?php
 					$qryLista2 = mysqli_query($mysqli, "SELECT estados.cod_estados FROM estados JOIN fornecedores WHERE fornecedores.id = '$idFornecedor' AND fornecedores.uf = estados.cod_estados");    
@@ -191,7 +225,7 @@
 			</select>
 		</div>
         <div class="input-field col s5">
-          <select id="cidades" name="cidade" class='selectsEC' disabled>
+          <select id="cidades" name="cidade" class='selectsEC' disabled required>
 				<?php
 					$qryLista3 = mysqli_query($mysqli, "SELECT cidades.cod_cidades FROM cidades JOIN fornecedores WHERE fornecedores.id = '$idFornecedor' AND fornecedores.cidade = cidades.cod_cidades");    
 					while($ress3 = mysqli_fetch_array($qryLista3)){
@@ -225,15 +259,19 @@
           <label for="contaCorrente">Conta Corrente</label>
         </div>
       </div>
-      <h5 id="cabeca">Sócios, Diretores ou Representantes<i class="material-icons left">assignment_ind</i></h5>
-      <div class="row" id="campo">
-		<?php
-	$sql22 = mysqli_query($mysqli, "SELECT socios.nomeSocio, socios.cpfSocio, socios.quantificacaoSocio, socios.telefoneSocio, socios.celularSocio, socios.emailSocio FROM socios JOIN login JOIN fornecedores WHERE login.usuario = '$userUpdate' AND login.senha = '$senhaUpdate' AND login.vinculo = fornecedores.id AND socios.vinculo = fornecedores.id");
-	$socios = 1;
-	$sql = "SELECT socios.nomeSocio, socios.cpfSocio, socios.quantificacaoSocio, socios.telefoneSocio, socios.celularSocio, socios.emailSocio FROM socios JOIN login JOIN fornecedores WHERE login.usuario = '$userUpdate' AND login.senha = '$senhaUpdate' AND login.vinculo = fornecedores.id AND socios.vinculo = fornecedores.id" or die("Erro ao selecionar");
+	  <?php
+	  $sql = "SELECT socios.nomeSocio, socios.cpfSocio, socios.quantificacaoSocio, socios.telefoneSocio, socios.celularSocio, socios.emailSocio FROM socios JOIN login JOIN fornecedores WHERE login.usuario = '$userUpdate' AND login.senha = '$senhaUpdate' AND login.vinculo = fornecedores.id AND socios.vinculo = fornecedores.id" or die("Erro ao selecionar");
 	$query = $mysqli->query($sql);
 	$row = $query->num_rows;
+	  $sql22 = mysqli_query($mysqli, "SELECT socios.nomeSocio, socios.cpfSocio, socios.quantificacaoSocio, socios.telefoneSocio, socios.celularSocio, socios.emailSocio FROM socios JOIN login JOIN fornecedores WHERE login.usuario = '$userUpdate' AND login.senha = '$senhaUpdate' AND login.vinculo = fornecedores.id AND socios.vinculo = fornecedores.id");
+	$socios = 1;
+	
+	echo "<div class='row' id='campo'>";
 	echo "<input type='hidden' value='$row' id='qtdeSocios' name='qtdeSocios' /><script>socios=$row;</script>";
+	if($row>0){
+	  ?>
+      <h5 id="cabeca">Sócios, Diretores ou Representantes<i class="material-icons left">assignment_ind</i></h5>
+	<?php
 	$socios = 1;
 	while($valor2 = mysqli_fetch_array($sql22)){
 		$nomeSocio = $valor2[0];
@@ -242,9 +280,9 @@
 		$telefoneSocio = $valor2[3];
 		$celularSocio = $valor2[4];
 		$emailSocio = $valor2[5];
-		echo "<div id='socioCp".$socios."'><h6 id='cabeca' class='right'>Número ".$socios."<i class='material-icons right'>people</i></h6><div class='input-field col s12'><input id='nomeSocio".$socios."' name='nomeSocio".$socios."' type='text' value='$nomeSocio' class='validate' disabled><label for='nomeSocio".$socios."'>Nome</label></div><div class='input-field col s6'><input id='cpfSocio".$socios."' name='cpfSocio".$socios."' type='number' value='$cpfSocio' class='validate' disabled><label for='cpfSocio".$socios."'>CPF</label></div><div class='input-field col s6'><input id='quantificacaoSocio".$socios."' value='$quantificacaoSocio' name='quantificacaoSocio".$socios."' type='text' class='validate' disabled><label for='quantificacaoSocio".$socios."'>Quantificação</label></div><div class='input-field col s6'><input id='telefoneSocios".$socios."' name='telefoneSocios".$socios."' value='$telefoneSocio' type='number' class='validate' disabled><label for='telefoneSocios".$socios."'>Telefone</label></div><div class='input-field col s6'><input id='celularSocio".$socios."' name='celularSocio".$socios."' type='number' value='$celularSocio' class='validate' disabled><label for='celularSocio".$socios."'>Celular</label></div><div class='input-field col s12'><input id='emailSocio' name='emailSocio".$socios."' type='text' value='$emailSocio' class='validate' disabled><label for='emailSocio".$socios."'>Email</label></div></div>";
+		echo "<div id='socioCp".$socios."'><h6 id='cabeca' class='right'>Número ".$socios."<i class='material-icons right'>people</i></h6><div class='input-field col s12'><input id='nomeSocio".$socios."' name='nomeSocio".$socios."' type='text' value='$nomeSocio' class='validate' disabled><label for='nomeSocio".$socios."'>Nome</label></div><div class='input-field col s6'><input id='cpfSocio".$socios."' name='cpfSocio".$socios."' type='text' value='$cpfSocio' class='validate cpf' disabled><label for='cpfSocio".$socios."'>CPF</label></div><div class='input-field col s6'><input id='quantificacaoSocio".$socios."' value='$quantificacaoSocio' name='quantificacaoSocio".$socios."' type='text' class='validate' disabled><label for='quantificacaoSocio".$socios."'>Quantificação</label></div><div class='input-field col s6'><input id='telefoneSocios".$socios."' name='telefoneSocios".$socios."' value='$telefoneSocio' type='text' class='validate tel' disabled><label for='telefoneSocios".$socios."'>Telefone</label></div><div class='input-field col s6'><input id='celularSocio".$socios."' name='celularSocio".$socios."' type='text' value='$celularSocio' class='validate tel' disabled><label for='celularSocio".$socios."'>Celular</label></div><div class='input-field col s12'><input id='emailSocio' name='emailSocio".$socios."' type='text' value='$emailSocio' class='validate' disabled><label for='emailSocio".$socios."'>Email</label></div></div>";
 		$socios++;
-	}
+	}}
 ?>
       </div>
 	  <div id="op">
@@ -258,7 +296,8 @@
 	<?php	include('include/rodape.php'); ?>
 
   <!--  Scripts-->
-  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="js/jquery-2.1.1.min.js"></script>
+  <script src="js/jquery.maskedinput.min.js"></script>
   <script src="js/materialize.js"></script>
   <script src="js/script.js"></script>
 

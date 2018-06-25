@@ -80,7 +80,7 @@
           <label for="fantasia">Nome de Fantasia</label>
         </div>
         <div class="input-field col s7">
-          <input id="cnpj" name="cnpj" type="number" class="validate" required>
+          <input id="cnpj" name="cnpj" type="text" class="validate cnpj" required>
           <label for="cnpj">CNPJ.n° <v>*</v></label>
         </div>
         <div class="input-field col s5">
@@ -104,11 +104,11 @@
           <label for="bairro">Bairro <v>*</v></label>
         </div>
         <div class="input-field col s5">
-          <input id="telefone" name="telefone" type="number" class="validate" required>
+          <input id="telefone" name="telefone" type="text" class="validate tel" required>
           <label for="telefone">Telefone <v>*</v></label>
         </div>
         <div class="col s7">
-			<select id="estados" name="uf">
+			<select id="estados" name="uf" required>
 				<option value="" disabled selected>Selecione o Estado</option>
 				<?php
 					include('conexao.php');
@@ -120,7 +120,8 @@
 			</select>
 		</div>
 		<div class="col s5">
-			<select id="cidades" name='cidade'>
+			<select id="cidades" name='cidade' required>
+			<option value="" disabled selected>Selecione uma Cidade</option>
 			</select>
 		</div>
       </div>
@@ -149,7 +150,7 @@
           <label for="nomeSocio1">Nome</label>
         </div>
         <div class="input-field col s6">
-          <input id="cpfSocio1" name="cpfSocio1" type="number" class="validate">
+          <input id="cpfSocio1" name="cpfSocio1" type="text" class="validate cpf">
           <label for="cpfSocio1">CPF</label>
         </div>
         <div class="input-field col s6">
@@ -157,11 +158,11 @@
           <label for="quantificacaoSocio1">Quantificação</label>
         </div>
         <div class="input-field col s6">
-          <input id="telefoneSocios1" name="telefoneSocios1" type="number" class="validate">
+          <input id="telefoneSocios1" name="telefoneSocios1" type="text" class='tel' class="validate">
           <label for="telefoneSocios1">Telefone</label>
         </div>
         <div class="input-field col s6">
-          <input id="celularSocio1" name="celularSocio1" type="number" class="validate">
+          <input id="celularSocio1" name="celularSocio1" type="text" class='tel' class="validate">
           <label for="celularSocio1">Celular</label>
         </div>
         <div class="input-field col s12">
@@ -181,7 +182,8 @@
 
 
   <!--  Scripts-->
-  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="js/jquery-2.1.1.min.js"></script>
+  <script src="js/jquery.maskedinput.min.js"></script>
   <script src="js/materialize.js"></script>
   <script src="js/script.js"></script>
 
