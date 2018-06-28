@@ -97,7 +97,7 @@
           <label for="fantasia">Nome de Fantasia</label>
         </div>
         <div class="input-field col s7">
-          <input id="cnpj" name="cnpj" type="number" class="validate" value="<?php echo $cnpj;?>" disabled required>
+          <input id="cnpj" name="cnpj" type="text" class="validate cnpj" value="<?php $str = preg_replace("/([0-9]{2})([0-9]{3})([0-9]{3})([0-9]{4})([0-9]{2})/", "$1.$2.$3/$4-$5", $cnpj);echo $str;?>" disabled required>
           <label for="cnpj">CNPJ.n° <v>*</v></label>
         </div>
         <div class="input-field col s5">
@@ -121,7 +121,7 @@
           <label for="bairro">Bairro <v>*</v></label>
         </div>
         <div class="input-field col s5">
-          <input id="telefone" name="telefone" type="number" value="<?php echo $telefone;?>" disabled class="validate" required>
+          <input id="telefone" name="telefone" type="text" value="<?php echo $telefone;?>" disabled class="validate tel" required>
           <label for="telefone">Telefone <v>*</v></label>
         </div>
        <div class="input-field col s7">

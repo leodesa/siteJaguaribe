@@ -152,7 +152,7 @@
 		}
 		else{
 		$sql2 = mysqli_query($mysqli, "SELECT fornecedores.rasao, fornecedores.fantasia, fornecedores.cnpj, fornecedores.telefone, fornecedores.cidade, fornecedores.uf, fornecedores.sit, fornecedores.id 
-		FROM fornecedores LIMIT 10");
+		FROM fornecedores ORDER BY fornecedores.id DESC LIMIT 10");
 		$row = $sql2->num_rows;
 		echo "<ul class='collapsible'>";
 		if($row>0){

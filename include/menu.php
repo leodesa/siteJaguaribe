@@ -52,14 +52,14 @@
 			  <a id="logo-container" class="brand-logo">Lavras da Mangabeira</a>
 			  <ul class="right hide-on-med-and-down">
 				<li><a href="administrativo.php">Inicio</a></li>
-				<li><a href="">Notificações 
+				<li data-target='modal3' class='modal-trigger notif' id='notif'><a>Notificações 
 				<?php
-					$sql3 = mysqli_query($mysqli, "SELECT COUNT(sit) FROM fornecedores WHERE sit = '1'");
+					$sql3 = mysqli_query($mysqli, "SELECT COUNT(visto) FROM fornecedores WHERE visto = '1'");
 						while($valor3 = mysqli_fetch_array($sql3)){
 							$notifications = $valor3[0];
 						}
 						if($notifications>0){
-							echo "<span class='new badge'>$notifications</span>";
+							echo "<span class='new badge' class='bbb'>$notifications</span>";
 						}
 				?>
 				</a></li>
@@ -76,11 +76,21 @@
         <img src="img/logo.png">
     </div></li>
     <li><a href="administrativo.php">Inicio</a></li>
-	<li><a href="">Notificações <?php if($notifications>0){
-							echo "<span class='new badge'>$notifications</span>";
+	<li data-target='modal3' class='modal-trigger notif' id='notif2'><a>Notificações <?php if($notifications>0){
+							echo "<span class='new badge' class='bbb''>$notifications</span>";
 						}?></a></li>
     <li><a href="logout.php">Sair</a></li>
   </ul>
 <?php
 	}
 ?>
+<div id="modal3" class="modal">
+	<div class="modal-content" id="modal3">
+		<div id="campoAddAdm3">
+		
+		</div>
+	</div>
+	<div class="modal-footer3">
+	  <a href="#!" class="modal-close waves-effect waves-red btn-flat">Fechar</a>
+	</div>
+</div>

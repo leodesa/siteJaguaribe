@@ -1,73 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
     var elems = document.querySelectorAll('.collapsible');
+	var elems = document.querySelectorAll('.modal');
+	var elems = document.querySelectorAll('select');
+	var elems = document.querySelectorAll('.sidenav');
     //var instances = M.Collapsible.init(elems, options);
   });
-  $(document).ready(function() {
-    $('input#input_text, textarea#textarea2').characterCounter();
-  });
-  // Or with jQuery
-
-document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('.modal');
-    //var instances = M.Modal.init(elems, options);
-  });
-
-  // Or with jQuery
-
-  $(document).ready(function(){
-    $('.modal').modal();
-  });
-  $(document).ready(function(){
-    $('.collapsible').collapsible();
-  });
   
-   document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('select');
-    //var instances = M.FormSelect.init(elems, options);
-  });
-
-  // Or with jQuery
-
-  $(document).ready(function(){
-    $('select').formSelect();
-  });
-  $(".dropdown-trigger").dropdown();
-  
-   document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('.sidenav');
-    //var instances = M.Sidenav.init(elems, options);
-  });
-
-  // Initialize collapsible (uncomment the lines below if you use the dropdown variation)
-  // var collapsibleElem = document.querySelector('.collapsible');
-  // var collapsibleInstance = M.Collapsible.init(collapsibleElem, options);
-
-  // Or with jQuery
-
-  $(document).ready(function(){
-    $('.sidenav').sidenav();
-  });
-  
-  $(document).ready(function() {
-    $('#estados').on('change', function(){        
-        $.ajax({
-            url:'search.php',
-            type:'post',
-            data: {estados : $('#estados').val()},
-            success: function (data){
-				var $selectDropdown = 
-					  $("#cidades")
-						.empty()
-						.html(' ');
-				
-				$selectDropdown.append("<option value='' disabled selected>Selecione uma cidade</option>");
-				$selectDropdown.append(data);
-				$selectDropdown.trigger('contentChanged');
-				$('select').formSelect();
-            }
-        });
-    });
-});
 
 function validar(){
 	var usuario = $("#usuarioCad").val();
@@ -213,13 +151,52 @@ function historico(){
 					  $("#modal")
 						.empty()
 						.html(' ');
-				
-				$modal.append("<div class='modal-content' id='modal'>"+data+"<div class='modal-footer'><a href='#' class='modal-close waves-effect waves-green btn-flat'>Fechar</a></div>");
+				$modal.append("<div class='modal-content' id='modal'>"+data+"<div class='modal-footer'><a class='modal-close waves-effect waves-red btn-flat'>Fechar</a></div>");
             }
         });
 }
-
-$(document).ready(function($){
+$(document).ready(function(){
+	setInterval(function(){noti(1)}, 10000);
+	$('input#input_text, textarea#textarea2').characterCounter();
+	$('select').formSelect();
+	$('.sidenav').sidenav();
+	$(".dropdown-trigger").dropdown();
+	$('.collapsible').collapsible();
+	$('.modal').modal();
+	$('#estados').on('change', function(){        
+        $.ajax({
+            url:'search.php',
+            type:'post',
+            data: {estados : $('#estados').val()},
+            success: function (data){
+				var $selectDropdown = 
+					  $("#cidades")
+						.empty()
+						.html(' ');
+				
+				$selectDropdown.append("<option value='' disabled selected>Selecione uma cidade</option>");
+				$selectDropdown.append(data);
+				$selectDropdown.trigger('contentChanged');
+				$('select').formSelect();
+            }
+        });
+    });
+    $('.notif').on('click',function(e){
+        e.preventDefault();
+		notificacoes = 1;
+        $.ajax({
+            url:'search.php',
+			dataType: 'html',
+            type:'post',
+            data: {notificacoes : notificacoes},
+            success: function (data){
+				$('#campoAddAdm3').remove();
+				$('.modal-footer3').remove();
+				$("#modal3").html(data+"<div class='modal-footer3'><a class='modal-close waves-effect waves-red btn-flat right' onclick='noti(1);'>Fechar</a></div>");
+				noti(1);
+            }
+        });
+    });
    $(document).on("focus", ".tel", function(){
       $.mask.definitions['~']='[+-]';
 	//Inicio Mascara Telefone
@@ -235,8 +212,6 @@ $(document).ready(function($){
 		}
 	}).trigger('focusout');
    });
-});
-$(document).ready(function($){
    $(document).on("focus", ".cpf", function(){
    $.mask.definitions['~']='[+-]';
 	//Inicio Mascara CNPJ
@@ -252,9 +227,8 @@ $(document).ready(function($){
 		}
 	}).trigger('focusout');
    });
-});
-jQuery(function($) {
-	$.mask.definitions['~']='[+-]';
+   $(document).on("focus", ".cnpj", function(){
+		$.mask.definitions['~']='[+-]';
 	//Inicio Mascara CNPJ
 	$('.cnpj').focusout(function(){
 		var phone, element;
@@ -267,8 +241,30 @@ jQuery(function($) {
 			element.mask("99.999.999/9999-99");
 		}
 	}).trigger('focusout');
-	//Fim Mascara CNPJ
+   });
 });
+function noti(a){
+	$.ajax({
+		url:'search.php',
+		dataType: 'html',
+		type:'post',
+		data: {noti : a},
+		success: function (data){
+			$('.bbb').remove();
+			$(".notif").html("<a>Notificações"+data+"</a>");
+		}
+	});
+}
+function VisualizatNotificacao(a){
+	$.ajax({
+		url:'search.php',
+		type:'post',
+		data: {visto : a},
+		success: function (data){
+			window.open('visualizarAdm.php?idF='+a, '_blank');
+		}
+	});
+}
 function reprovarCad(){
 	$('.modal-footer').remove();
 	$('#modal').remove();

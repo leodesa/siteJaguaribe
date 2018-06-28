@@ -24,6 +24,16 @@
 	width: 74px !important; 
 	height: 87px !important;
 }
+.notFan{
+	color: #26a69a;
+}
+.notificacoes{
+	color: #333!important;
+}
+.notFan, .notificacoes{
+	font-size: 15px;
+	display:inline-block;
+}
 .redes{
 	margin-right: 5px;
 	width: 18px;

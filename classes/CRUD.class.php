@@ -60,7 +60,9 @@
 			$chars = array(".","/","-");
 			$cnpj2 = str_replace($chars,"",$cnpj);
 			include("conexao.php");
-			$sql1 = "INSERT INTO fornecedores VALUES(null, '$rasao','$fantasia','$cnpj2','$cgf','$rua','$numeroCasa','$complemento','$bairro','$telefone','$uf','$cidade','$nomeBanco','$agencia','$contaCorrente','1')";
+			date_default_timezone_set('America/Fortaleza');
+			$data = date('Y-m-d H:i');
+			$sql1 = "INSERT INTO fornecedores VALUES(null, '$rasao','$fantasia','$cnpj2','$cgf','$rua','$numeroCasa','$complemento','$bairro','$telefone','$uf','$cidade','$nomeBanco','$agencia','$contaCorrente','1','$data','1','1')";
 			if($mysqli->query($sql1)){
 			}else{
 				echo("<script type='text/javascript'> alert('Houve um erro! tente novamente'); location.href='cadastro.php';</script>");
@@ -108,7 +110,9 @@
 			$chars = array(".","/","-");
 			$cnpj2 = str_replace($chars,"",$cnpj);
 			include("conexao.php");
-			$sql1 = "UPDATE fornecedores SET rasao = '$rasao', fantasia = '$fantasia', cnpj = '$cnpj2', cgf = '$cgf', rua = '$rua', numeroCasa = '$numeroCasa', complemento = '$complemento', bairro = '$bairro', telefone = '$telefone', uf = '$uf', cidade = '$cidade', nomeBanco = '$nomeBanco', agencia = '$agencia', contaCorrente = '$contaCorrente' WHERE id = '$idFornecedor'";
+			date_default_timezone_set('America/Fortaleza');
+			$data = date('Y-m-d H:i:s');
+			$sql1 = "UPDATE fornecedores SET rasao = '$rasao', fantasia = '$fantasia', cnpj = '$cnpj2', cgf = '$cgf', rua = '$rua', numeroCasa = '$numeroCasa', complemento = '$complemento', bairro = '$bairro', telefone = '$telefone', uf = '$uf', cidade = '$cidade', nomeBanco = '$nomeBanco', agencia = '$agencia', contaCorrente = '$contaCorrente' , entrada = '$data', status = 2, visto = '1' WHERE id = '$idFornecedor'";
 			if($mysqli->query($sql1)){
 			}else{
 				echo("<script type='text/javascript'> alert('Houve um erro! tente novamente'); location.href='inicio.php';</script>");

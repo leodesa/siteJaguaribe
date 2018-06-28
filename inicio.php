@@ -84,14 +84,17 @@
 				if($valor[6]==1){
 					$sit = "access_time";
 					$sit2 = "Em análise";
+					$sitNum = $valor[6];
 				}else
 				//Aprovado
 				if($valor[6]==2){
 					$sit = "done";
 					$sit2 = "Aprovado na análise";
+					$sitNum = $valor[6];
 				}else{
 					$sit = "close";
 					$sit2 = "Reprovado na análise";
+					$sitNum = $valor[6];
 				}
 			}
 		}
@@ -102,7 +105,7 @@
 		}else{
 			$sql4 = mysqli_query($mysqli, "SELECT recomendacoes.msg FROM recomendacoes WHERE recomendacoes.vinculo='$idFornecedor' ORDER BY recomendacoes.data DESC LIMIT 1");
 			$row4 = $sql4->num_rows;
-			if($row4<=0){
+			if($row4<=0 OR $sitNum==2){
 				$msgT = "Nenhuma recomendação";
 			}else{
 				while($valor4 = mysqli_fetch_array($sql4)){
@@ -118,7 +121,7 @@
 			<div id="campoAddAdm"></div>
 		</div>
 		<div class="modal-footer">
-		  <button data-target="modal1" class="modal-close waves-effect waves-green btn-flat">Fechar</button>
+		  <button data-target="modal1" class="modal-close waves-effect waves-red btn-flat">Fechar</button>
 		</div>
 	  </div>
 	 <table>
@@ -280,7 +283,7 @@
 		$telefoneSocio = $valor2[3];
 		$celularSocio = $valor2[4];
 		$emailSocio = $valor2[5];
-		echo "<div id='socioCp".$socios."'><h6 id='cabeca' class='right'>Número ".$socios."<i class='material-icons right'>people</i></h6><div class='input-field col s12'><input id='nomeSocio".$socios."' name='nomeSocio".$socios."' type='text' value='$nomeSocio' class='validate' disabled><label for='nomeSocio".$socios."'>Nome</label></div><div class='input-field col s6'><input id='cpfSocio".$socios."' name='cpfSocio".$socios."' type='text' value='$cpfSocio' class='validate cpf' disabled><label for='cpfSocio".$socios."'>CPF</label></div><div class='input-field col s6'><input id='quantificacaoSocio".$socios."' value='$quantificacaoSocio' name='quantificacaoSocio".$socios."' type='text' class='validate' disabled><label for='quantificacaoSocio".$socios."'>Quantificação</label></div><div class='input-field col s6'><input id='telefoneSocios".$socios."' name='telefoneSocios".$socios."' value='$telefoneSocio' type='text' class='validate tel' disabled><label for='telefoneSocios".$socios."'>Telefone</label></div><div class='input-field col s6'><input id='celularSocio".$socios."' name='celularSocio".$socios."' type='text' value='$celularSocio' class='validate tel' disabled><label for='celularSocio".$socios."'>Celular</label></div><div class='input-field col s12'><input id='emailSocio' name='emailSocio".$socios."' type='text' value='$emailSocio' class='validate' disabled><label for='emailSocio".$socios."'>Email</label></div></div>";
+		echo "<div id='socioCp".$socios."'><h6 id='cabeca' class='right'>Número ".$socios."<i class='material-icons right'>people</i></h6><div class='input-field col s12'><input id='nomeSocio".$socios."' name='nomeSocio".$socios."' type='text' value='$nomeSocio' class='validate' disabled><label for='nomeSocio".$socios."'>Nome</label></div><div class='input-field col s6'><input id='cpfSocio".$socios."' name='cpfSocio".$socios."' type='text' value='$cpfSocio' class='validate cpf' disabled><label for='cpfSocio".$socios."'>CPF</label></div><div class='input-field col s6'><input id='quantificacaoSocio".$socios."' value='$quantificacaoSocio' name='quantificacaoSocio".$socios."' type='text' class='validate' disabled><label for='quantificacaoSocio".$socios."'>Quantificação</label></div><div class='input-field col s6'><input id='telefoneSocios".$socios."' name='telefoneSocios".$socios."' value='$telefoneSocio' type='text' class='validate tel' disabled><label for='telefoneSocios".$socios."'>Telefone</label></div><div class='input-field col s6'><input id='celularSocio".$socios."' name='celularSocio".$socios."' type='text' value='$celularSocio' class='validate tel' disabled><label for='celularSocio".$socios."'>Celular</label></div><div class='input-field col s12'><input name='emailSocio".$socios."' type='text' value='$emailSocio' class='validate' disabled><label for='emailSocio".$socios."'>Email</label></div></div>";
 		$socios++;
 	}}
 ?>
