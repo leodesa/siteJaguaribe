@@ -176,6 +176,9 @@
       <button class="green right btn waves-effect waves-light block" type="button" name="action" onclick="validar()">Cadastrar
         <i class="material-icons right">send</i>
       </button>
+	  <button class="green left btn waves-effect waves-light block" type="button" name="action" onclick="history.go(-1)">Voltar
+        <i class="material-icons right">keyboard_backspace</i>
+      </button>
     </form>
   </div>
   <?php	include('include/rodape.php'); ?>

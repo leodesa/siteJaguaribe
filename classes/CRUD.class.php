@@ -76,7 +76,7 @@
 			}else{
 				echo("<script type='text/javascript'> alert('Houve um erro! tente novamente'); location.href='cadastro.php';</script>");
 			}
-				mkdir("/xampp/htdocs/siteJaguaribe/arquivos/".$rasao."-".$cnpj2."/");
+				mkdir("/xampp/htdocs/LavrasDaMagabeira/arquivos/".$rasao."-".$cnpj2."/");
 				$pasta = $rasao."-".$cnpj2;
 			$sql5 = "INSERT INTO pasta VALUES(null, '$pasta','$id')";
 			if($mysqli->query($sql5)){
@@ -101,6 +101,7 @@
 					}
 				}
 			}
+			echo("<script type='text/javascript'> alert('Cadastrado com sucesso! Faça Login.'); location.href='index.php';</script>");
 		}
 		
 		
