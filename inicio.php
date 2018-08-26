@@ -113,6 +113,15 @@
 				}
 			}
 		}
+		$sql5 = mysqli_query($mysqli, "SELECT recomendacoes.linkAux FROM recomendacoes WHERE recomendacoes.vinculo='$idFornecedor' ORDER BY recomendacoes.data DESC LIMIT 1");
+		$row5 = $sql5->num_rows;
+		if(($row5>0) and ($sitNum != 2)){
+			while($valor5 = mysqli_fetch_array($sql5)){
+				$linkAux = $valor5[0];
+			}
+		}else{
+			$linkAux = "";
+		}
   ?>
 <h1 id="titulo" class="center">Dados de Cadastro Fornecedores e Prestadores de Serviços</h1>
     <div class="cadastro row">
@@ -129,6 +138,7 @@
           <tr>
               <th>Situação</th>
               <th>Recomendações</th>
+			  <?php if(($linkAux!="") and ($sitNum != 2)){echo"<th>Link</th>";}?>
           </tr>
         </thead>
 
@@ -136,6 +146,7 @@
           <tr>
             <td><?php echo "<i class='tiny material-icons'>".$sit."</i> $sit2";?></td>
             <td><?php echo $msgT;?></td>
+			<?php $links = array("menuUsuario.php", "inicio.php", "visualizarDoc.php"); if(($linkAux!="")and ($sitNum != 2)){$caminho = $links[(int)$linkAux-1]; echo"<td><a href='$caminho'>Acessar</a></td>";}?>
           </tr>
         </tbody>
       </table>

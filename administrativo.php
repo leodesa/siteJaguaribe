@@ -20,10 +20,10 @@
 <body>
   <?php	include('include/menu.php'); ?>
 <h1 id="titulo" class="center">Últimos Cadastros de Fornecedores e Prestadores de Serviços</h1>
-     <div id="documentos">
+     <div id="" class="container col l10 m8 s12">
 	 <form action="administrativo.php" method="POST">
 	<div class="row">
-		<div class="col s4">
+		<div class="col s12 l4 m4">
 			<select id="situacao" name='sit'>
 				<option disabled selected>Situação</option>
 				<option value="1">Em análise</option>
@@ -31,7 +31,7 @@
 				<option value="3">Reprovado</option>
 			</select>
 		</div>
-		<div class="col s4">
+		<div class="col s12 l4 m4">
 			<select id="estados" name="estados">
 				<option value="" disabled selected>Selecione um estado</option>
 				<?php
@@ -42,20 +42,20 @@
 				?>
 			</select>
 		</div>
-		<div class="col s4">
+		<div class="col s12 l4 m4">
 			<select id="cidades" name="cidades">
 				<option value="" disabled selected>Selecione uma cidade</option>
 			</select>
 		</div>
-		<div class="col s8 nav-wrapper">
+		<div class="nav-wrapper col s12 l12 m12">
 			<div class="input-field">
 			  <input id="search" type="search" name='busca' placeholder="Pesquisar fornecedores">
 			  <label class="label-icon" for="search"><i class="material-icons">search</i></label>
 			  <i class="material-icons">close</i>
 			</div>	   
 		</div>
-		<div class="input-field col s4">
-			<button class="btn waves-effect waves-light" type="submit" name="action">Filtrar
+		<div class="input-field col l12 m12 s12">
+			<button class="btn waves-effect waves-light right" type="submit" name="action">Filtrar
 				<i class="material-icons right">filter_list</i>
 			  </button>
 		</div>
@@ -107,7 +107,7 @@
 			///if(isset($_POST['estados']) and !empty($_POST['estados'])){$sit = $_POST['situacao'];}
 			$sql2 = mysqli_query($mysqli, $sql);
 			$row = $sql2->num_rows;
-		echo "<ul class='collapsible'>";
+		echo "<ul class='collapsible col l12 m12 s12'>";
 		if($row>0){
 			while($valor = mysqli_fetch_array($sql2)){
 				//Aguardando análise
@@ -139,7 +139,7 @@
 							<b>Cidade:</b> $cidadee<br>
 							<b>UF:</b> $uff<br>
 							<b>Situação:</b> <i class='tiny material-icons'>".$sit3."</i> $sit2<br><br><br>
-							<a class='waves-effect waves-light btn' target='_blank' href='visualizarAdm.php?idF=$valor[7]'><i class='material-icons left'>visibility</i>Visualizar</a>
+							<a class='waves-effect waves-light btn col s8' href='visualizarAdm.php?idF=$valor[7]'><i class='material-icons left'>visibility</i>Visualizar</a>
 						  </span></div>
 						</li>";
 			}
@@ -187,7 +187,7 @@
 							<b>Cidade:</b> $cidadee<br>
 							<b>UF:</b> $uff<br>
 							<b>Situação:</b> <i class='tiny material-icons'>".$sit."</i> $sit2<br><br><br>
-							<a class='waves-effect waves-light btn' target='_blank' href='visualizarAdm.php?idF=$valor[7]'><i class='material-icons left'>visibility</i>Visualizar</a>
+							<a class='waves-effect waves-light btn col s8'  href='visualizarAdm.php?idF=$valor[7]'><i class='material-icons left'>visibility</i>Visualizar</a>
 						  </span></div>
 						</li>";
 			}

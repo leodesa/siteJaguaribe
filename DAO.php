@@ -135,9 +135,10 @@
 		include("conexao.php");
 		$msg = $_POST['msg'];
 		$idf = $_POST['idf'];
+		if(isset($_POST['linkAux'])){$linkAux = $_POST['linkAux'];}else{$linkAux ="";}
 		date_default_timezone_set('America/Fortaleza');
 		$data = date('Y-m-d H:i');
-		$sql = "INSERT INTO recomendacoes VALUES(null,'$msg','$data','$idf')";
+		$sql = "INSERT INTO recomendacoes VALUES(null,'$msg','$data','$linkAux','$idf')";
 		$mysqli->query($sql);
 		$sql3 = "UPDATE fornecedores SET sit='3' WHERE fornecedores.id='$idf'";
 		$mysqli->query($sql3);

@@ -46,7 +46,7 @@
 <body>
   <?php	include('include/menu.php'); ?>
 <h1 id="titulo" class="center">Dados de Cadastro Fornecedores e Prestadores de Serviços</h1>
-    <div class="cadastro row" id="cadastro">
+    <div class="container">
 		
 	  <div id="modal1" class="modal">
 		<div class="modal-content" id="modal">
@@ -70,22 +70,23 @@
 		$query3 = mysqli_query($mysqli, "SELECT * FROM recomendacoes WHERE recomendacoes.vinculo='$idFornecedor'");    
 		$rows3 = $query3->num_rows;
 		if($rows3>0){
-			echo"<button data-target='modal1' class='modal-trigger waves-effect waves-red btn-flat' id='historico' onclick='historico();'>Histórico de recomendações<i class='material-icons right'>history</i></button><br><br><br>";
+			echo"<button data-target='modal1' class='modal-trigger waves-effect waves-red btn-flat left col s12 m6 l4' id='historico' onclick='historico();'>Histórico de recomendações<i class='material-icons right'>history</i></button><br><br><br>";
 		}
 		$query4 = mysqli_query($mysqli, "SELECT fornecedores.sit FROM fornecedores WHERE fornecedores.id='$idFornecedor'");
 		while($res4 = mysqli_fetch_array($query4)){
 			$situacao = $res4[0];
 		}
 		if($situacao==1){
-			echo "<button data-target='modal1' class='modal-trigger waves-effect waves-green btn-flat right' onclick='aprovarCad();' id='aprovarCad'>Aprovar<i class='material-icons right'>done</i></button>";
-			echo"<button data-target='modal1' class='modal-trigger waves-effect waves-red btn-flat' id='reprovarCad' onclick='reprovarCad();'>Reprovar<i class='material-icons right'>close</i></button><br><br><br>";
+			echo "<button data-target='modal1' class='modal-trigger waves-effect waves-green btn-flat right col s12 m6 l2' onclick='aprovarCad();' id='aprovarCad'>Aprovar<i class='material-icons right'>done</i></button>";
+			echo"<button data-target='modal1' class='modal-trigger waves-effect waves-red btn-flat left col s12 m6 l2' id='reprovarCad' onclick='reprovarCad();'>Reprovar<i class='material-icons right'>close</i></button><br><br><br>";
 		}else if($situacao==3){
-			echo "<button data-target='modal1' class='modal-trigger waves-effect waves-green btn-flat right' onclick='aprovarCad();' id='aprovarCad'>Aprovar<i class='material-icons right'>done</i></button>";
+			echo "<button data-target='modal1' class='modal-trigger waves-effect waves-green btn-flat right col s12 m6 l2' onclick='aprovarCad();' id='aprovarCad'>Aprovar<i class='material-icons right'>done</i></button>";
 		}else if($situacao==2){
-			echo"<button data-target='modal1' class='modal-trigger waves-effect waves-red btn-flat' id='reprovarCad' onclick='reprovarCad();'>Reprovar<i class='material-icons right'>close</i></button><br><br><br>";
+			echo"<button data-target='modal1' class='modal-trigger waves-effect waves-red btn-flat left col s12 m6 l2' id='reprovarCad' onclick='reprovarCad();'>Reprovar<i class='material-icons right'>close</i></button><br><br><br>";
 		}
 	  ?>
-	  
+	  <br>
+	  <br>
       <h5 id="cabeca">Pessoa Jurídica<i class="material-icons left">people</i></h5>
       <div class="row">
         <div class="input-field col s12">
@@ -211,7 +212,7 @@
 		if($rows>0){
 			
 			while($valor = mysqli_fetch_array($sql2)){
-				echo "<ul class='collection'>
+				echo "<ul class='collection col s12 m10 l8'>
     <li class='collection-item avatar'>
       <i class='small material-icons'>insert_drive_file</i>
 	  <span class='title'><b>".$valor[0]."</b></span>
@@ -225,12 +226,12 @@
 			echo"Situação: <i class='tiny material-icons'>access_time</i> Expirado<br>";
 	  }}
       echo "</p><br>
-	  <a class='waves-effect waves-light btn' target='_blank' href='arquivos/".$valor[1]."-".$valor[2]."/".$valor[0]."'><i class='material-icons left'>visibility</i>Visualizar</a>
+	  <a class='waves-effect waves-light btn col s12 m6 l2' target='_blank' href='arquivos/".$valor[1]."-".$valor[2]."/".$valor[0]."'><i class='material-icons left'>visibility</i>Visualizar</a>
     </li>
   </ul>";
 			}
 		}else{
-			echo "<ul class='collection'>
+			echo "<ul class='collection col s12'>
 				<br><h6 class='center'>Nenhum registro encontrado</h6><br>
 			</ul>";
 		}?>
@@ -242,8 +243,5 @@
   <script src="js/jquery-2.1.1.min.js"></script>
   <script src="js/materialize.js"></script>
   <script src="js/script.js"></script>
-  <?php
-	echo"";
-	?>
   </body>
 </html>

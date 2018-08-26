@@ -123,9 +123,10 @@ function reprovar(){
 	$.ajax({
             url:'DAO.php',
             type:'post',
-            data: {msg : $('#textarea2').val(), idf : $('#idF').val()},
+            data: {msg : $('#textarea2').val(), idf : $('#idF').val(), linkAux : $("input[name='link']:checked").val()},
             success: function (data){
 				alert('Salvo');
+				history.go(0);
             }
         });
 }
@@ -136,6 +137,7 @@ function aprovar(){
             data: {idAprovado : $('#idF').val()},
             success: function (data){
 				alert('Salvo');
+				history.go(0);
             }
         });
 }
@@ -268,7 +270,7 @@ function VisualizatNotificacao(a){
 function reprovarCad(){
 	$('.modal-footer').remove();
 	$('#modal').remove();
-	$('#modal1').append("<div class='modal-content' id='modal'><div id='campoAddAdm'><h6>Justificativa</h6><p><textarea id='textarea2' class='materialize-textarea' data-length='2000'></textarea><label for='Justificativa'>Caracteres</label></p></div></div><div class='modal-footer'><a href='#' class='modal-close waves-effect waves-green btn-flat'>Cancelar</a><button data-target='modal1' class='modal-close waves-effect waves-green btn-flat' onclick='reprovar();'>Confirmar</button></div>");
+	$('#modal1').append("<div class='modal-content' id='modal'><div id='campoAddAdm'><h6>Justificativa</h6><p><textarea id='textarea2' class='materialize-textarea' data-length='2000'></textarea><label for='Justificativa'>Caracteres</label><br><br><h6 id='cabeca'>Links para auxílio<i class='material-icons left'>link</i></h6><label><br><input class='with-gap' name='link' type='radio' value='1' class='radio' /><span>Inserir documentos</span></label><br><label><input class='with-gap' name='link' type='radio' value='2' class='radio' /><span>Alterar dados de cadastro</span></label><br><label><input class='with-gap' name='link' type='radio' class='radio' value='3' /><span>Excluir documentos</span></label></p></div></div><div class='modal-footer'><a href='#' class='modal-close waves-effect waves-green btn-flat'>Cancelar</a><button data-target='modal1' class='modal-close waves-effect waves-green btn-flat' onclick='reprovar();'>Confirmar</button></div>");
 	$('input#input_text, textarea#textarea2').characterCounter();
 }
 function aprovarCad(){

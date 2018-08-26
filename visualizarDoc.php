@@ -37,6 +37,7 @@
     <h1 id="titulo" class="center">Documentos enviados</h1>
 
     <div id="documentos">
+    <div id="row">
 		<?php
 		$compU = $_COOKIE[md5('usuariofpslavras')];
 		$compS = $_COOKIE[md5('senhafpslavras')];
@@ -49,7 +50,7 @@
 		$rows = $sql2->num_rows;
 		if($rows>0){
 			while($valor = mysqli_fetch_array($sql2)){
-				echo "<ul class='collection'>
+				echo "<ul class='collection col s12 m12 l8'>
     <li class='collection-item avatar'>
       <i class='small material-icons'>insert_drive_file</i>
 	  <span class='title'><b>".$valor[0]."</b></span>
@@ -78,6 +79,7 @@
 		<input type="hidden" value="" name="nomeArquivo" id="nomeArquivo" />
 		<input type="hidden" value="" name="exclusao" id="exclusao" />
 	</form>
+	</div>
   <?php	include('include/rodape.php'); ?>
 
 
